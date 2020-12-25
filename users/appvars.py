@@ -6,5 +6,6 @@ USERNAME_MAX_LENGTH = 30  # Used in project_directory/adpater.py
 FIRST_NAME_MAX_LENGTH = 30
 LAST_NAME_MAX_LENGTH = 30
 
-EMPLOYEE = 'E'
 MANAGER = 'M'
+LAWYER = 'L'
+CUSTOMER = 'C'

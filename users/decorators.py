@@ -1,6 +1,6 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
-from users.appvars import EMPLOYEE, MANAGER
+from users.appvars import MANAGER, LAWYER, CUSTOMER
 
 
 '''
@@ -15,12 +15,12 @@ the login_required decorator will redirect the user to log in.
 '''
 
 
-def employee_required(
+def manager_required(
         function=None,
         redirect_field_name=REDIRECT_FIELD_NAME, login_url='/'):
 
     actual_decorator = user_passes_test(
-        lambda u: u.is_active and u.user_type == EMPLOYEE,
+        lambda u: u.is_active and u.user_type == MANAGER,
         redirect_field_name=redirect_field_name,
         login_url=login_url)
 
@@ -30,12 +30,27 @@ def employee_required(
     return actual_decorator
 
 
-def manager_required(
+def lawyer_required(
         function=None,
         redirect_field_name=REDIRECT_FIELD_NAME, login_url='/'):
 
     actual_decorator = user_passes_test(
-        lambda u: u.is_active and u.user_type == MANAGER,
+        lambda u: u.is_active and u.user_type == LAWYER,
+        redirect_field_name=redirect_field_name,
+        login_url=login_url)
+
+    if function:
+        return actual_decorator(function)
+
+    return actual_decorator
+
+
+def customer_required(
+        function=None,
+        redirect_field_name=REDIRECT_FIELD_NAME, login_url='/'):
+
+    actual_decorator = user_passes_test(
+        lambda u: u.is_active and u.user_type == CUSTOMER,
         redirect_field_name=redirect_field_name,
         login_url=login_url)
 
