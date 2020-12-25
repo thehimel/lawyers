@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
-from users.appvars import EMPLOYEE, MANAGER
+from users.appvars import MANAGER, LAWYER, CUSTOMER
 
 
 user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
@@ -27,12 +27,14 @@ def user_directory_path(instance, filename):
 # is_staff, is_active, is_superuser, date_joined, last_login
 class User(AbstractUser):
 
-    USER_TYPE_CHOICES = [(EMPLOYEE, 'Employee'), (MANAGER, 'Manager'), ]
-    GENDER_CHOICES = [('F', 'Female'), ('M', 'Male'), ('O', 'Other'), ]
+    USER_TYPE_CHOICES = [(MANAGER, 'Manager'),
+                         (LAWYER, 'Lawyer'), (CUSTOMER, 'Customer')]
+
+    GENDER_CHOICES = [('F', 'Female'), ('M', 'Male'), ('O', 'Other')]
 
     # Default user_type must be defined to enforce security
     user_type = models.CharField(max_length=1,
-                                 choices=USER_TYPE_CHOICES, default=EMPLOYEE, )
+                                 choices=USER_TYPE_CHOICES, default=CUSTOMER, )
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, )
 
@@ -49,9 +51,13 @@ class User(AbstractUser):
         resize_img(file_path=self.pro_pic.path, height=300, width=300)
 
     @property
-    def is_employee(self):
-        return str(self.user_type) == EMPLOYEE
-
-    @property
     def is_manager(self):
         return str(self.user_type) == MANAGER
+
+    @property
+    def is_lawyer(self):
+        return str(self.user_type) == LAWYER
+
+    @property
+    def is_customer(self):
+        return str(self.user_type) == CUSTOMER
