@@ -5,7 +5,7 @@ import sys
 from decouple import config
 
 
-PROJECT_NAME = 'djpro'
+PROJECT_NAME = 'lawyers'
 
 # For Development use 'settings/development.py'
 # For Production use 'settings/production.py'
