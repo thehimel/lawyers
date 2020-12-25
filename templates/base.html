@@ -51,13 +51,11 @@
 
                 {% if user.is_authenticated %}
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user"></i>&nbsp;Account
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'core:dashboard' %}">
-                            <i class="fab fa-dashcube"></i>&nbsp;Dashboard
-                        </a>
                         <a class="dropdown-item" href="{% url 'users:profile' %}">
                             <i class="fas fa-user"></i>&nbsp;Profile
                         </a>
@@ -72,10 +70,14 @@
                         </a>
                     </div>
                 </div>
+                <a class="nav-link" href="{% url 'core:dashboard' %}">
+                    <i class="fab fa-dashcube"></i>&nbsp;Dashboard
+                </a>
 
                 {% else %}
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user-plus"></i>&nbsp;Signup
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -87,7 +89,9 @@
                         </a>
                     </div>
                 </div>
-                <a class="nav-link" href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
+                <a class="nav-link" href="{% url 'account_login' %}">
+                    <i class="fas fa-sign-in-alt"></i>&nbsp;Login
+                </a>
                 {% endif %}
 
             </div>
