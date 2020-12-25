@@ -1,15 +1,15 @@
 from allauth.account.views import SignupView
-from users.forms.managers import ManagerSignupForm
+from users.forms.lawyers import LawyerSignupForm
 
 
-# Manager Signup View
-class ManagerSignupView(SignupView):
+# Lawyer Signup View
+class LawyerSignupView(SignupView):
 
     template_name = 'users/signup.html'
-    form_class = ManagerSignupForm
+    form_class = LawyerSignupForm
     redirect_field_name = 'next'  # Important to redirect user if has next url
 
     def get_context_data(self, **kwargs):
-        ret = super(ManagerSignupView, self).get_context_data(**kwargs)
+        ret = super(LawyerSignupView, self).get_context_data(**kwargs)
         ret.update(self.kwargs)
         return ret
