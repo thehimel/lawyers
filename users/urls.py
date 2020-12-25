@@ -10,10 +10,10 @@ urlpatterns = [
     # url: /users/profile | name: users:profile
     path('profile/', profile, name='profile'),
 
+    # url: /users/lawyers/signup/ | name: users:lawyer_signup
+    path('lawyers/signup', LawyerSignupView.as_view(), name='lawyer_signup'),
+
     # url: /users/customers/signup/ | name:  users:customer_signup
     path('customers/signup',
          CustomerSignupView.as_view(), name='customer_signup'),
-
-    # url: /users/lawyers/signup/ | name: users:lawyer_signup
-    path('lawyers/signup', LawyerSignupView.as_view(), name='lawyer_signup'),
 ]
