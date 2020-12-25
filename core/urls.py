@@ -1,6 +1,6 @@
 from django.urls import path
 from core.views import (
-    HomeView, EmployeeDashboardView, ManagerDashboardView, dashboard
+    HomeView, CustomerDashboardView, LawyerDashboardView, dashboard
 )
 
 app_name = 'core'
@@ -9,13 +9,13 @@ urlpatterns = [
     # url: '/', name = core:home
     path('', HomeView.as_view(), name='home'),
 
-    # url: '/employees/dashboard', name = core:emp_dashboard
-    path('employees/dashboard',
-         EmployeeDashboardView.as_view(), name='emp_dashboard'),
+    # url: '/customers/dashboard', name = core:customer_dashboard
+    path('customers/dashboard',
+         CustomerDashboardView.as_view(), name='customer_dashboard'),
 
-    # url: '/managers/dashboard', name = core:man_dashboard
-    path('managers/dashboard',
-         ManagerDashboardView.as_view(), name='man_dashboard'),
+    # url: '/lawyers/dashboard', name = core:lawyer_dashboard
+    path('lawyers/dashboard',
+         LawyerDashboardView.as_view(), name='lawyer_dashboard'),
 
     # url: '/dashboard', name = core:dashboard
     path('dashboard/', dashboard, name='dashboard'),

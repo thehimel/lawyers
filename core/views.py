@@ -2,8 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from users.appvars import EMPLOYEE, MANAGER
-from users.decorators import employee_required, manager_required
+from users.appvars import LAWYER, CUSTOMER
+from users.decorators import lawyer_required, customer_required
 
 
 class HomeView(TemplateView):
@@ -11,8 +11,8 @@ class HomeView(TemplateView):
     template_name = "core/home.html"
 
 
-@method_decorator([login_required, employee_required], name='dispatch')
-class EmployeeDashboardView(TemplateView):
+@method_decorator([login_required, lawyer_required], name='dispatch')
+class LawyerDashboardView(TemplateView):
 
     template_name = 'core/dashboard.html'
 
@@ -23,15 +23,15 @@ class EmployeeDashboardView(TemplateView):
         # Add in a QuerySet of all the books
         user = self.request.user
         context = {
-            'msg': 'Only employees can access this page.',
+            'msg': 'Only lawyers can access this page.',
             'name': user.get_full_name,
             'type': user.get_user_type_display,
         }
         return context
 
 
-@method_decorator([login_required, manager_required], name='dispatch')
-class ManagerDashboardView(TemplateView):
+@method_decorator([login_required, customer_required], name='dispatch')
+class CustomerDashboardView(TemplateView):
 
     template_name = 'core/dashboard.html'
 
@@ -42,7 +42,7 @@ class ManagerDashboardView(TemplateView):
         # Add in a QuerySet of all the books
         user = self.request.user
         context = {
-            'msg': 'Only managers can access this page.',
+            'msg': 'Only customers can access this page.',
             'name': user.get_full_name,
             'type': user.get_user_type_display,
         }
@@ -52,11 +52,11 @@ class ManagerDashboardView(TemplateView):
 def dashboard(request):
 
     if request.user.is_authenticated:
-        if request.user.user_type == EMPLOYEE:
-            return redirect('core:emp_dashboard')
+        if request.user.user_type == LAWYER:
+            return redirect('core:lawyer_dashboard')
 
-        elif request.user.user_type == MANAGER:
-            return redirect('core:man_dashboard')
+        elif request.user.user_type == CUSTOMER:
+            return redirect('core:customer_dashboard')
 
     # If user is not authenticated
     return render(request, 'core:home')
