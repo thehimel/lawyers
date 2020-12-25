@@ -39,7 +39,7 @@ urlpatterns = [
 
     path('accounts/signup',
          RedirectView.as_view(
-             pattern_name='users:emp_signup', permanent=False)),
+             pattern_name='users:customer_signup', permanent=False)),
 
     path('users/', include('users.urls', namespace='users')),
     path('', include('core.urls', namespace='core')),
