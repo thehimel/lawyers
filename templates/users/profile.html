@@ -7,39 +7,47 @@
 {% block content %}
 <main>
     <div class="container">
-        <section class="mt-4 mb-4">
-            <!-- Card -->
-            <!-- https://mdbootstrap.com/docs/jquery/components/cards/ -->
-            <div class="card testimonial-card text-center">
 
-                <!-- Background color -->
-                <div class="card-up indigo lighten-1"></div>
+        <div class="row">
 
-                <!-- Avatar -->
-                <div class="avatar mx-auto white mt-4">
-                    <img src="{{ user.pro_pic.url }}" class="rounded-circle" alt="Profile Avatar">
-                </div>
+            <!-- col-md will form columns when the screen size >= medium -->
+            <div class="col-md-4">
+                <section class="mt-4 mb-4">
+                    <!-- Card -->
+                    <div class="card text-center">
+                        <!-- Avatar -->
+                        <div class="avatar mx-auto white mt-4">
+                            <img src="{{ user.pro_pic.url }}" class="rounded-circle img-fluid" alt="Profile Avatar">
+                        </div>
 
-                <!-- Content -->
-                <div class="card-body">
-                    <!-- Name -->
-                    <h4 class="card-title">{{ user.get_full_name }}</h4>
-                    <hr>
-                    <span class="badge badge-secondary">{{ user.get_user_type_display }}</span>
-                    <span class="badge badge-info">{{ user.username }}</span>
-                    <span class="badge badge-primary">{{ user.email }}</span>
-                </div>
+                        <!-- Content -->
+                        <div class="card-body">
+                            <!-- Name -->
+                            <h4 class="card-title">{{ user.get_full_name }}</h4>
+                            <hr>
+                            <span class="badge badge-secondary">{{ user.get_user_type_display }}</span>
+                            <span class="badge badge-info">{{ user.username }}</span>
+                            <span class="badge badge-primary">{{ user.email }}</span>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                </section>
             </div>
-            <!-- Card -->
-        </section>
-        <section class="mb-4">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <legend class="border-bottom mb-4">Profile Info</legend>
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-info">{% trans "Update" %}</button>
-            </form>
-        </section>
+
+            <!-- mt-md-2 will add a top margin when the screen size >= medium -->
+            <div class="col-md-8 mt-md-2">
+                <section class="mb-4">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <legend class="border-bottom mb-4">Profile Info</legend>
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-info">{% trans "Update" %}</button>
+                    </form>
+                </section>
+            </div>
+
+        </div>
+
     </div>
 </main>
 {% endblock %}
