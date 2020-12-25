@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1></h1>
+    <!-- Jumbotron -->
+    <div class="p-5 text-center">
+        <h1 class="mb-3">Multiple User Types</h1>
+        <h5 class="mb-3">with</h5>
+        <h4 class="mb-3">DJango and Allauth</h4>
+        <a class="btn btn-outline-primary btn-lg m-2" href="{% url 'users:emp_signup' %}" role="button">
+            Employee Signup
+        </a>
+        <a class="btn btn-outline-secondary btn-lg m-2" href="{% url 'users:man_signup' %}" role="button">
+            Manager Signup
+        </a>
+    </div>
+    <!-- Jumbotron -->
+</div>
+{% endblock content %}

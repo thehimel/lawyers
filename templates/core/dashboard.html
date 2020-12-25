@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container my-5 py-4 z-depth-1">
+
+        <!--Section: Content-->
+        <section class="text-center px-md-5 mx-md-5 dark-grey-text">
+
+            <h3 class="font-weight-bold mb-4">Welcome {{ name }}!</h3>
+            <p class="text-muted">{{ msg }}</p>
+            <p><span class="badge badge-secondary">{{ type }}</span></p>
+
+            <a class="btn btn-primary" role="button" href="{% url 'users:profile' %}">Profile</a>
+
+        </section>
+        <!--Section: Content-->
+
+    </div>
+</main>
+{% endblock %}

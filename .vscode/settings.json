@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "C:\\Users\\SANDHI\\.conda\\envs\\law\\python.exe",
+    "python.autoComplete.extraPaths": [
+        "C:\\Users\\SANDHI\\.conda\\envs\\mut\\Lib\\site-packages"
+    ],
+    "editor.minimap.enabled": false,
+}

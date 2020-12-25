@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <section class="mt-4 mb-4">
+
+            <h1>{% trans "Sign Up" %}</h1>
+            <p>
+                {% blocktrans %}
+                Already have an account? Then please <a href="{{ login_url }}">sign in</a>.
+                {% endblocktrans %}
+            </p>
+
+            <form class="signup" id="signup_form" method="post">
+                {% csrf_token %}
+
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="form-row">
+                    <div class="col">{{ form.first_name|as_crispy_field }}</div>
+                    <div class="col">{{ form.last_name|as_crispy_field }}</div>
+                </div>
+
+                <div>{{ form.username|as_crispy_field }}</div>
+
+                <div>{{ form.email|as_crispy_field }}</div>
+                <div>{{ form.email2|as_crispy_field }}</div>
+
+                <div>{{ form.password1|as_crispy_field }}</div>
+                <div>{{ form.password2|as_crispy_field }}</div>
+
+                <!-- Redirect Field -->
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-info btn-block">{% trans "Sign Up" %}</button>
+
+                <hr>
+                <!-- Terms of service -->
+                <p>By clicking <em>Sign up</em> you agree to our <a href="" target="_blank">terms of service</a>
+            </form>
+
+        </section>
+    </div>
+</main>
+{% endblock %}
