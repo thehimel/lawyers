@@ -4,7 +4,7 @@ from users.appvars import (
 from django import forms
 
 
-class EmployeeSignupForm(SignupForm):
+class CustomerSignupForm(SignupForm):
 
     # By default email, username, password fields are loaded in the form.
     # Add these fields here and include them in the save method.
@@ -14,9 +14,9 @@ class EmployeeSignupForm(SignupForm):
         max_length=LAST_NAME_MAX_LENGTH, label='Last Name')
 
     def save(self, request):
-        user = super(EmployeeSignupForm, self).save(request)
+        user = super(CustomerSignupForm, self).save(request)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        # user_type not required as default is EMPLOYEE
+        # user_type not required as default is CUSTOMER
         user.save()
         return user
