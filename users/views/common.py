@@ -47,6 +47,7 @@ class AddressCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         # Selecting the present user as the user of this address
         form.instance.user = self.request.user
+        messages.success(self.request, 'Your address is created!')
         return super().form_valid(form)
 
 
@@ -61,7 +62,7 @@ def address_update(request):
                 request.POST, instance=request.user.address)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Your address has been updated!')
+                messages.success(request, 'Your address is updated!')
                 return redirect('users:profile')
 
         # If it's not POST, it's GET. Thus generate the form.

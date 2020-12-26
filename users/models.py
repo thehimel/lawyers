@@ -80,9 +80,9 @@ class Address(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     flat_number = models.CharField(
-        max_length=10, blank=True, verbose_name="Flat Numnber")
+        max_length=10, blank=True, verbose_name="Flat Number")
     apartment_number = models.CharField(
-        max_length=10, blank=True, verbose_name="Apartment Numnber")
+        max_length=10, blank=True, verbose_name="Apartment Number")
 
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
@@ -94,7 +94,7 @@ class Address(models.Model):
     def __str__(self):
         return (self.flat_number + ', ' + self.street + ' ' +
                 self.apartment_number + ', ' + self.city + ', ' +
-                self.state + ', ' + self.country)
+                self.state + ', ' + str(self.country))
 
     # Goes to this url after successful creation of an object of this class
     def get_absolute_url(self):
@@ -136,3 +136,6 @@ class LawyerProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):  # new
+        return reverse('users:lawyer_profile')

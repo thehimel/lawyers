@@ -1,6 +1,6 @@
 from django.urls import path
 from users.views.common import profile, AddressCreateView, address_update
-from users.views.lawyers import LawyerSignupView
+from users.views.lawyers import LawyerSignupView, LawyerProfileCreateView
 from users.views.customers import CustomerSignupView
 
 
@@ -15,6 +15,10 @@ urlpatterns = [
 
     # url: /users/lawyers/signup/ | name: users:lawyer_signup
     path('lawyers/signup', LawyerSignupView.as_view(), name='lawyer_signup'),
+
+    # url: /users/lawyers/profile/ | name: users:lawyer_profile
+    path('lawyers/profile',
+         LawyerProfileCreateView.as_view(), name='lawyer_profile'),
 
     # url: /users/customers/signup/ | name:  users:customer_signup
     path('customers/signup',
