@@ -8,6 +8,7 @@ A Django project that illustrates the implementation of multiple types of users.
 - django-crispy-forms==1.9.2
 - django-cleanup==5.0.0
 - django-multiselectfield==0.1.12
+- django-countries==7.0
 
 - mdb==4.19.1
 - bootstrap==4
@@ -19,6 +20,7 @@ A Django project that illustrates the implementation of multiple types of users.
 - whitenoise - to server static files by running collecstatic in heroku
 - django-cleanup - to delete files when user updates a filefield
 - django-multiselectfield - to allow users select multiple choices
+- django-countries - to show countries as dropdown list
 
 ## Getting Started
 Create and activate virtual env with Miniconda and install dependencies.

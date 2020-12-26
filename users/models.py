@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from PIL import Image
 from django.urls import reverse
 from multiselectfield import MultiSelectField
+from django_countries.fields import CountryField
 from users.appvars import (
     MANAGER, LAWYER, CUSTOMER, FIRST_NAME_MAX_LENGTH,
     LAST_NAME_MAX_LENGTH, CATEGORY_MAX_LENGTH
@@ -39,7 +40,10 @@ class User(AbstractUser):
     USER_TYPE_CHOICES = [(MANAGER, 'Manager'),
                          (LAWYER, 'Lawyer'), (CUSTOMER, 'Customer')]
 
-    GENDER_CHOICES = [('F', 'Female'), ('M', 'Male'), ('O', 'Other')]
+    # The first option is kept empty, to show the corresponding text as
+    # the first option in the dropdown
+    GENDER_CHOICES = [('', 'Select'), ('F', 'Female'),
+                      ('M', 'Male'), ('O', 'Other')]
 
     # Default user_type must be defined to enforce security
     user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES,
@@ -83,7 +87,9 @@ class Address(models.Model):
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
-    country = models.CharField(max_length=20)
+
+    # blank_label is being used to show as the first option in the dropdown
+    country = CountryField(blank_label='Select')
 
     def __str__(self):
         return (self.flat_number + ', ' + self.street + ' ' +
