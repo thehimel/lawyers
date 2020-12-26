@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
+from django.urls import reverse
 from users.appvars import (
     MANAGER, LAWYER, CUSTOMER, FIRST_NAME_MAX_LENGTH,
     LAST_NAME_MAX_LENGTH, CATEGORY_MAX_LENGTH
@@ -82,3 +83,23 @@ class User(AbstractUser):
     @property
     def is_customer(self):
         return str(self.user_type) == CUSTOMER
+
+
+class Address(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    flat_number = models.CharField(max_length=10, blank=True)
+    apartment_number = models.CharField(max_length=10, blank=True)
+
+    street = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    country = models.CharField(max_length=20)
+
+    def __str__(self):
+        return (str(self.street) + ', ' + str(self.apartment_number) + ', ' +
+                self.city + ', ' + self.state + ', ' + self.country)
+
+    # Goes to this url after successful creation of an object of this class
+    def get_absolute_url(self):
+        return reverse('users:profile')

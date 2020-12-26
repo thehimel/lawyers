@@ -28,6 +28,23 @@
                             <span class="badge badge-secondary">{{ user.get_user_type_display }}</span>
                             <span class="badge badge-info">{{ user.username }}</span>
                             <span class="badge badge-primary">{{ user.email }}</span>
+
+                            {% if user.address %}
+                            <div class="mt-2">
+                                <!-- btn-block is used to occupy the full width of the card. -->
+                                <a href="#" class="btn btn-secondary btn-block" role="button">
+                                    {{ user.address.flat_number }},
+                                    {{ user.address.street }} {{ user.address.apartment_number }},
+                                    {{ user.address.city }}, {{ user.address.state }}, {{ user.address.country }}
+                                </a>
+                            </div>
+                            {% else %}
+                            <div class="mt-2">
+                                <a href="{% url 'users:address_create' %}" class="btn btn-warning" role="button">
+                                    Create Address
+                                </a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- Card -->
