@@ -7,7 +7,7 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username',
-                  'gender', 'categories', 'pro_pic']
+                  'gender', 'pro_pic']
 
         # If you want to change the lebel of any field in the form.
         # labels = {

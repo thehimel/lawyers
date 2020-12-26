@@ -7,6 +7,7 @@ A Django project that illustrates the implementation of multiple types of users.
 - django-allauth==0.42.0
 - django-crispy-forms==1.9.2
 - django-cleanup==5.0.0
+- django-multiselectfield==0.1.12
 
 - mdb==4.19.1
 - bootstrap==4
@@ -17,11 +18,12 @@ A Django project that illustrates the implementation of multiple types of users.
 - gunicorn - for running python server in heroku
 - whitenoise - to server static files by running collecstatic in heroku
 - django-cleanup - to delete files when user updates a filefield
+- django-multiselectfield - to allow users select multiple choices
 
 ## Getting Started
 Create and activate virtual env with Miniconda and install dependencies.
 ```bash
-conda create --name mut python=3.7
+conda create --name law python=3.7
 conda activate mut
 pip install -r requirements.txt
 ```

@@ -2,17 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
 from django.urls import reverse
+from multiselectfield import MultiSelectField
 from users.appvars import (
     MANAGER, LAWYER, CUSTOMER, FIRST_NAME_MAX_LENGTH,
     LAST_NAME_MAX_LENGTH, CATEGORY_MAX_LENGTH
 )
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=CATEGORY_MAX_LENGTH)
-
-    def __str__(self):
-        return self.name
 
 
 user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
@@ -58,13 +52,6 @@ class User(AbstractUser):
                                 upload_to=user_directory_path,
                                 verbose_name="Profile Picture")
 
-    # user-category has many-to-many relationship.
-    # multiple users can have multiple categories.
-    # if category is deleted, user will not be deleted bydefault.
-    # Defailt is None and
-    # blank=True t oallow users update profile without any category.
-    categories = models.ManyToManyField(Category, default=None, blank=True)
-
     # Overriding the save method
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -88,8 +75,10 @@ class User(AbstractUser):
 class Address(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    flat_number = models.CharField(max_length=10, blank=True)
-    apartment_number = models.CharField(max_length=10, blank=True)
+    flat_number = models.CharField(
+        max_length=10, blank=True, verbose_name="Flat Numnber")
+    apartment_number = models.CharField(
+        max_length=10, blank=True, verbose_name="Apartment Numnber")
 
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
@@ -104,3 +93,40 @@ class Address(models.Model):
     # Goes to this url after successful creation of an object of this class
     def get_absolute_url(self):
         return reverse('users:profile')
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=CATEGORY_MAX_LENGTH)
+
+    def __str__(self):
+        return self.name
+
+
+class LawyerProfile(models.Model):
+
+    # Every lawyer can have only one lawyer profile.
+    # When user is deleted, lawyer profile will be deleted.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # LawyerProfile-Category has many-to-many relationship.
+    # multiple lawyers can have multiple categories.
+    # if category is deleted, user will not be deleted bydefault.
+    categories = models.ManyToManyField(Category)
+
+    DAYS_OF_WEEK = (
+        (0, 'Monday'),
+        (1, 'Tuesday'),
+        (2, 'Wednesday'),
+        (3, 'Thursday'),
+        (4, 'Friday'),
+        (5, 'Saturday'),
+        (6, 'Sunday'),
+    )
+
+    days = MultiSelectField(choices=DAYS_OF_WEEK,
+                            max_choices=6, verbose_name="Working Days")
+
+    consultation_fee = models.IntegerField(verbose_name="Consultation Fee")
+
+    def __str__(self):
+        return self.user.username
