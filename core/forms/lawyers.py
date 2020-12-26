@@ -6,4 +6,4 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = LawyerProfile
-        fields = ['categories', 'days', 'fee']
+        fields = ['experience', 'categories', 'days', 'fee']

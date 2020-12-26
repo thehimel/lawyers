@@ -33,7 +33,7 @@ class LawyerDashboardView(TemplateView):
                   name='dispatch')
 class LawyerProfileCreateView(CreateView):
     model = LawyerProfile
-    fields = ['categories', 'days', 'fee']
+    fields = ['experience', 'categories', 'days', 'fee']
 
     template_name = 'core/lawyer_profile_create.html'
 
