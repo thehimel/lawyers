@@ -32,7 +32,7 @@
                             {% if user.address %}
                             <div class="mt-2">
                                 <!-- btn-block is used to occupy the full width of the card. -->
-                                <a href="#" class="btn btn-secondary btn-block" role="button">
+                                <a href="{% url 'users:address_update' %}" class="btn btn-secondary btn-block" role="button">
                                     {{ user.address.flat_number }},
                                     {{ user.address.street }} {{ user.address.apartment_number }},
                                     {{ user.address.city }}, {{ user.address.state }}, {{ user.address.country }}

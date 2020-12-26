@@ -6,12 +6,12 @@
 
 {% block content %}
 <main>
-    <div class="container mb-4">
+    <div class="container">
 
-        <section>
+        <section class="mt-4 mb-4">
             <form method="post">
                 {% csrf_token %}
-                <legend class="border-bottom mb-4">Add Address</legend>
+                <legend class="border-bottom mb-4">Update Address</legend>
                 {{ form|crispy }}
                 <button type="submit" class="btn btn-info">{% trans "Submit" %}</button>
             </form>

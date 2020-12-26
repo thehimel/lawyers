@@ -97,8 +97,9 @@ class Address(models.Model):
     country = models.CharField(max_length=20)
 
     def __str__(self):
-        return (str(self.street) + ', ' + str(self.apartment_number) + ', ' +
-                self.city + ', ' + self.state + ', ' + self.country)
+        return (self.flat_number + ', ' + self.street + ' ' +
+                self.apartment_number + ', ' + self.city + ', ' +
+                self.state + ', ' + self.country)
 
     # Goes to this url after successful creation of an object of this class
     def get_absolute_url(self):
