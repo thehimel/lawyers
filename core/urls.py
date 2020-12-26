@@ -1,6 +1,6 @@
 from django.urls import path
 from core.views.common import HomeView, dashboard
-from core.views.lawyers import LawyerDashboardView
+from core.views.lawyers import LawyerDashboardView, LawyerProfileCreateView
 from core.views.customers import CustomerDashboardView
 
 
@@ -20,4 +20,8 @@ urlpatterns = [
 
     # url: '/dashboard', name = core:dashboard
     path('dashboard/', dashboard, name='dashboard'),
+
+    # url: '/lawyers/profile/create', name = core:lawyer_dashboard
+    path('lawyers/profile/create',
+         LawyerProfileCreateView.as_view(), name='lawyer_profile_create'),
 ]

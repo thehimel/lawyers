@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Create Lawyer Profile" %}{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container">
+
+        <section class="mt-4 mb-4">
+            <form method="post">
+                {% csrf_token %}
+                <legend class="border-bottom mb-4">Create Lawyer Profile</legend>
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-info">{% trans "Submit" %}</button>
+            </form>
+        </section>
+
+    </div>
+</main>
+{% endblock %}
