@@ -132,10 +132,10 @@ class LawyerProfile(models.Model):
     days = MultiSelectField(choices=DAYS_OF_WEEK,
                             max_choices=6, verbose_name="Working Days")
 
-    consultation_fee = models.IntegerField(verbose_name="Consultation Fee")
+    fee = models.IntegerField(verbose_name="Consultation Fee")
 
     def __str__(self):
         return self.user.username
 
     def get_absolute_url(self):  # new
-        return reverse('users:lawyer_profile')
+        return reverse('core:lawyer_profile')
