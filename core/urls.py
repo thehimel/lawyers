@@ -1,7 +1,8 @@
 from django.urls import path
-from core.views import (
-    HomeView, CustomerDashboardView, LawyerDashboardView, dashboard
-)
+from core.views.common import HomeView, dashboard
+from core.views.lawyers import LawyerDashboardView
+from core.views.customers import CustomerDashboardView
+
 
 app_name = 'core'
 
