@@ -28,6 +28,20 @@ class LawyerDashboardView(TemplateView):
         return context
 
 
+# This is a function, thus it can't redirect the control to another route.
+# It can only return True or False.
+def valid_office_hours(form, request):
+    time_start = form.cleaned_data['time_start']
+    time_end = form.cleaned_data['time_end']
+
+    if time_end <= time_start:
+        messages.warning(
+            request, 'Office hours start time must be smaller than end time.')
+        return False
+
+    return True
+
+
 @method_decorator([login_required, lawyer_required,
                    user_has_address, user_has_no_lawyer_profile],
                   name='dispatch')
@@ -38,6 +52,11 @@ class LawyerProfileCreateView(CreateView):
     template_name = 'core/lawyer_profile_create.html'
 
     def form_valid(self, form):
+        if not valid_office_hours(form, self.request):
+            # Rendering this template with the present form data
+            return render(self.request,
+                          'core/lawyer_profile_create.html', {'form': form})
+
         # Selecting the present user as the user of this address
         form.instance.user = self.request.user
         messages.success(self.request, 'Your lawyer profile is created!')
@@ -57,6 +76,12 @@ def lawyer_profile_update(request):
             form = LawyerProfileForm(
                 request.POST, instance=request.user.lawyerprofile)
             if form.is_valid():
+                if not valid_office_hours(form, request):
+                    # Rendering this template with the present form data
+                    return render(request,
+                                  'core/lawyer_profile.html',
+                                  {'form': form})
+
                 form.save()
                 messages.success(request, 'Your lawyer profile is updated!')
                 return redirect('core:lawyer_profile')
@@ -64,12 +89,8 @@ def lawyer_profile_update(request):
         # If it's not POST, it's GET. Thus generate the form.
         else:
             form = LawyerProfileForm(instance=request.user.lawyerprofile)
-
-        context = {
-            'form': form,
-        }
-
-        return render(request, 'core/lawyer_profile.html', context)
+            context = {'form': form}
+            return render(request, 'core/lawyer_profile.html', context)
 
     # If the user doesn't have any lawyer profile
     except Exception:

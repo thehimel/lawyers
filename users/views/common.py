@@ -69,11 +69,9 @@ def address_update(request):
         else:
             form = AddressUpdateForm(instance=request.user.address)
 
-        context = {
-            'form': form,
-        }
+            context = {'form': form}
 
-        return render(request, 'users/address.html', context)
+            return render(request, 'users/address.html', context)
 
     # If the user doesn't have any address
     except Exception:
