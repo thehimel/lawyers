@@ -34,9 +34,9 @@ urlpatterns = [
     path('lawyers/',
          LawyerProfileListView.as_view(), name='lawyers'),
 
-    # url: '/appointment/1', name = core:appointment
-    path('appointment/<int:pk>',
-         AppointmentCreateView.as_view(), name='appointment'),
+    # url: '/appointments/1', name = core:appointment
+    path('appointments/<int:pk>',
+         AppointmentCreateView.as_view(), name='appointment_create'),
 
     # url: '/appointments/', name = core:appointments
     path('appointments/', AppointmentListView.as_view(), name='appointments'),

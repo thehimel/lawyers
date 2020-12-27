@@ -13,7 +13,7 @@
                 <!-- Card -->
                 <div class="card text-center">
 
-                    <a href="{% url 'core:appointment' lawyerprofile.user.id %}" class="btn">
+                    <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}" class="btn">
                         <!-- Avatar -->
                         <div class="avatar mx-auto white mt-4">
                             <img src="{{ lawyerprofile.user.pro_pic.url }}" class="rounded-circle img-fluid" alt="Profile Avatar">

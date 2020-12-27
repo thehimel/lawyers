@@ -33,4 +33,4 @@ class Appointment(models.Model):
 
     # Goes to this url after successful creation of an object of this class
     def get_absolute_url(self):
-        return reverse('users:profile')
+        return reverse('core:appointments')

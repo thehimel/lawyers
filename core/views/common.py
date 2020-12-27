@@ -5,6 +5,7 @@ from users.appvars import LAWYER, CUSTOMER
 from core.models import Appointment
 from core.forms.common import AppointmentCreateForm
 from users.models import User
+from django.contrib import messages
 
 
 class HomeView(TemplateView):
@@ -44,6 +45,7 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
 
         # Selecting the present user as the customer
         form.instance.customer = self.request.user
+        messages.success(self.request, 'Appointment is created successfully.')
         return super().form_valid(form)
 
 
