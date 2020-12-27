@@ -1,7 +1,7 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from users.decorators import (lawyer_required, user_has_address,
                               user_has_no_lawyer_profile)
 from core.forms.lawyers import LawyerProfileCreateForm, LawyerProfileUpdateForm
@@ -97,3 +97,11 @@ def lawyer_profile_update(request):
         messages.warning(
             request, 'You must create a lawyer profile first to update it.')
         return redirect('core:lawyer_profile_create')
+
+
+class LawyerProfileListView(ListView):
+    model = LawyerProfile
+    template_name = 'core/lawyers.html'
+    context_object_name = 'lawyerprofiles'
+    # ordering = ['-date_created']
+    # paginate_by = 5  # Posts per page

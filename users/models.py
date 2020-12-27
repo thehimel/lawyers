@@ -148,6 +148,7 @@ class LawyerProfile(models.Model):
     # Every lawyer can have only one lawyer profile.
     # When user is deleted, lawyer profile will be deleted.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    about = models.TextField(max_length=500)
     experience = models.IntegerField(verbose_name="Experience in Year")
 
     # LawyerProfile-Category has many-to-many relationship.
