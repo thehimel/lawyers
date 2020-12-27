@@ -1,5 +1,5 @@
-# django-multi-user-types
-A Django project that illustrates the implementation of multiple types of users.
+# lawyers
+A Django project that illustrates the implementation of apppointment booking for lawyers.
 
 ## Important Package Versions
 - python==3.7
@@ -9,7 +9,6 @@ A Django project that illustrates the implementation of multiple types of users.
 - django-cleanup==5.0.0
 - django-multiselectfield==0.1.12
 - django-countries==7.0
-
 - mdb==4.19.1
 - bootstrap==4
 
@@ -63,30 +62,32 @@ python -c "from django.core.management.utils import get_random_secret_key; print
 ```
 
 ## User Types
-A company having 2 types of users: Employee and Manager.
+A company having 3 types of users: Lawyer, Customer, and Manager.
 
 allauth has default SignupForm, SignupView. Do not override it. Let it be remain at accounts/signup. And do not change the signup form in the settings.py for allauth - it will override the save method and won't allow our employee and manager signup views to save anything extra.
 
 We have customized the following files for the tasks below.
 users/forms/, users/views/, templates/users
 
-1. Employee
-Create custom signup form for employee.
-Create custom signup view for employee.
+1. Lawyer
+Create custom signup form for lawyer.
+Create custom signup view for lawyer.
 You must use a custom template in this signup view.
 
-2. Manager
-Create custom signup form for manager.
-Create custom signup view for manager.
+2. Customer
+Create custom signup form for customer.
+Create custom signup view for customer.
 You must use a custom template in this signup view.
+
+3. Managers are created internally from admin panel.
 
 ## Frontend
-MDB-Free_4.19.1 with Boostrap 4 is used for frontend. [Link](https://mdbootstrap.com/docs/jquery/getting-started/download/)
+Boostrap 4.5.3 is used for frontend. [Link](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
 Design of base.html
 It was designed with the index.html file from mbd4 and allauth base.html.
 
-Integrate MDB4 with all the html files inside templates/account.
+Integrate Bootstrap with all the html files inside templates/account.
 The account folder is downloaded from the template directory of allauth github repository.
 
 ## Deletion of Files Changed by the User
