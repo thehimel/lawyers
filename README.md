@@ -113,3 +113,5 @@ Yes
 - [GFG](https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/)
 - [pyblog](https://github.com/thehimel/pyblog)
 - [django-boilerplate](https://github.com/thehimel/django-boilerplate)
+- [django-multi-user-types](https://github.com/thehimel/django-multi-user-types)
+- [django-multi-user-types-bs](https://github.com/thehimel/django-multi-user-types-bs)
