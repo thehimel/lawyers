@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import TemplateView, CreateView, ListView
 from users.appvars import LAWYER, CUSTOMER
 from core.models import Appointment
@@ -26,11 +26,27 @@ def dashboard(request):
     return render(request, 'core:home')
 
 
-class AppointmentCreateView(LoginRequiredMixin, CreateView):
+class AppointmentCreateView(LoginRequiredMixin,
+                            UserPassesTestMixin, CreateView):
     model = Appointment
     form_class = AppointmentCreateForm
 
     template_name = 'core/appointment.html'
+
+    def test_func(self):
+        pk = self.kwargs['pk']
+
+        # Selecting the user with the pk as the lawyer
+        lawyer = User.objects.get(pk=pk)
+
+        # Check whether the lawyer has a lawyer profile or not.
+        # It is possible that the lawyer doesn't have any lawyerprofile
+        # object. Thus use try and except to stay safe.
+        try:
+            if lawyer.lawyerprofile:
+                return True
+        except Exception:
+            return False
 
     def form_valid(self, form):
         # We have accepted a value as pk in the url.
