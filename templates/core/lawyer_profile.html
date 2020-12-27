@@ -26,12 +26,27 @@
                         <!-- Content -->
                         <div class="card-body">
                             <!-- Name -->
-                            <h4 class="card-title">{{ user.get_full_name }}</h4>
+                            <h4 class="card-title">
+                                {{ user.get_full_name }}
+                                <!-- Veification icon -->
+                                {% if user.lawyerprofile.is_verified %}
+                                <i class="far fa-check-circle text-success"></i></i>
+                                {% endif %}
+                            </h4>
                             <hr>
-                            <span class="badge badge-info">{{ user.address.city }}</span>
-                            <span class="badge badge-danger">{{ user.lawyerprofile.experience }} Years</span>
+                            <span class="badge badge-info">
+                                <i class="fas fa-city"></i>
+                                {{ user.address.city }}
+                            </span>
+                            <span class="badge badge-danger">
+                                <i class="fas fa-user-clock"></i>
+                                {{ user.lawyerprofile.experience }} Years
+                            </span>
                             <span class="badge badge-warning">&euro;{{ user.lawyerprofile.fee }}</span>
-                            <span class="badge badge-secondary">{{ user.lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ user.lawyerprofile.time_end }}</span>
+                            <span class="badge badge-secondary">
+                                <i class="far fa-clock"></i>
+                                {{ user.lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ user.lawyerprofile.time_end }}
+                            </span>
                             <p>
                                 <!-- Generally the many-to-many field is not iterable.
                                     Make it iterable by added .all at the end. -->
@@ -39,6 +54,11 @@
                                 <span class="badge badge-success">{{ category.name }}</span>
                                 {% endfor %}
                             </p>
+
+                            <a href="{{user.lawyerprofile.document.url}}" class="btn btn-primary btn-sm">
+                                <i class="far fa-file-alt"></i>
+                                Official Document
+                            </a>
                         </div>
                     </div>
                     <!-- Card -->

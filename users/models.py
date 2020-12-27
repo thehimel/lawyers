@@ -8,6 +8,7 @@ from users.appvars import (
     MANAGER, LAWYER, CUSTOMER, FIRST_NAME_MAX_LENGTH,
     LAST_NAME_MAX_LENGTH, CATEGORY_MAX_LENGTH
 )
+from django.core.exceptions import ValidationError
 
 
 user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
@@ -26,6 +27,12 @@ def resize_img(file_path, height=300, width=300):
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_data/user_{0}/{1}'.format(instance.id, filename)
+
+
+# For lawyer profile, we get the user_id from instance.user.id
+def user_directory_path_lawyer_profile(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_data/user_{0}/{1}'.format(instance.user.id, filename)
 
 
 # Fields provided by default
@@ -108,6 +115,34 @@ class Category(models.Model):
         return self.name
 
 
+def file_size(value):
+    mb = 1
+    limit = mb * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError(
+            f'File too large. Size should not exceed {mb} MB. \
+                Current size is {value.size/(1024*1024):.2f} MB.')
+
+
+def content_type_pdf(value):
+    content_type = ['application/pdf']
+
+    # Few other file type options
+    # content_types = ['video/x-msvideo', 'application/pdf',
+    #                  'video/mp4', 'audio/mpeg', ]
+
+    # When we create the model, that time file field will be there.
+    # When we update the model and don't upload any file, no file
+    # file will exist. That time it will through error that content_type
+    # not available. Thus, better solution is to do it with try-except.
+    # When no file field is there, we just pass the function.
+    try:
+        if value.file.content_type not in content_type:
+            raise ValidationError('Only PDF files are accepted.')
+    except Exception:
+        pass
+
+
 class LawyerProfile(models.Model):
 
     # Every lawyer can have only one lawyer profile.
@@ -137,6 +172,12 @@ class LawyerProfile(models.Model):
     time_end = models.TimeField(verbose_name="Office Hours End")
 
     fee = models.IntegerField(verbose_name="Consultation Fee")
+
+    document = models.FileField(upload_to=user_directory_path_lawyer_profile,
+                                verbose_name="Official Document",
+                                validators=[file_size, content_type_pdf])
+
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

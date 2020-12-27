@@ -9,7 +9,7 @@
     <div class="container">
 
         <section class="mt-4 mb-4">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <legend class="border-bottom mb-4">Create Lawyer Profile</legend>
                 {{ form|crispy }}
