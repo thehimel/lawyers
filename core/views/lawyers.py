@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from users.decorators import (lawyer_required, user_has_address,
                               user_has_no_lawyer_profile)
-from core.forms.lawyers import LawyerProfileUpdateForm
+from core.forms.lawyers import LawyerProfileForm
 from users.models import LawyerProfile
 from django.contrib import messages
 
@@ -33,7 +33,7 @@ class LawyerDashboardView(TemplateView):
                   name='dispatch')
 class LawyerProfileCreateView(CreateView):
     model = LawyerProfile
-    fields = ['experience', 'categories', 'days', 'fee']
+    form_class = LawyerProfileForm
 
     template_name = 'core/lawyer_profile_create.html'
 
@@ -54,7 +54,7 @@ def lawyer_profile_update(request):
         request.user.lawyerprofile is not None
 
         if request.method == 'POST':
-            form = LawyerProfileUpdateForm(
+            form = LawyerProfileForm(
                 request.POST, instance=request.user.lawyerprofile)
             if form.is_valid():
                 form.save()
@@ -63,7 +63,7 @@ def lawyer_profile_update(request):
 
         # If it's not POST, it's GET. Thus generate the form.
         else:
-            form = LawyerProfileUpdateForm(instance=request.user.lawyerprofile)
+            form = LawyerProfileForm(instance=request.user.lawyerprofile)
 
         context = {
             'form': form,

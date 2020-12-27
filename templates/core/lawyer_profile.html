@@ -31,6 +31,7 @@
                             <span class="badge badge-info">{{ user.address.city }}</span>
                             <span class="badge badge-danger">{{ user.lawyerprofile.experience }} Years</span>
                             <span class="badge badge-warning">&euro;{{ user.lawyerprofile.fee }}</span>
+                            <span class="badge badge-secondary">{{ user.lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ user.lawyerprofile.time_end }}</span>
                             <p>
                                 <!-- Generally the many-to-many field is not iterable.
                                     Make it iterable by added .all at the end. -->

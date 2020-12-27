@@ -133,6 +133,9 @@ class LawyerProfile(models.Model):
     days = MultiSelectField(choices=DAYS_OF_WEEK,
                             max_choices=6, verbose_name="Working Days")
 
+    time_start = models.TimeField(verbose_name="Office Hours Start")
+    time_end = models.TimeField(verbose_name="Office Hours End")
+
     fee = models.IntegerField(verbose_name="Consultation Fee")
 
     def __str__(self):
