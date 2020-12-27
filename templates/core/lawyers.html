@@ -13,7 +13,7 @@
                 <!-- Card -->
                 <div class="card text-center">
 
-                    <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}" class="btn">
+                    <a href="{% url 'core:lawyers' %}" class="btn">
                         <!-- Avatar -->
                         <div class="avatar mx-auto white mt-4">
                             <img src="{{ lawyerprofile.user.pro_pic.url }}" class="rounded-circle img-fluid" alt="Profile Avatar">
@@ -31,26 +31,32 @@
                                 {% endif %}
                             </h4>
                             <hr>
-                            <span class="badge badge-info">
-                                <i class="fas fa-city"></i>
-                                {{ lawyerprofile.user.address.city }}
-                            </span>
-                            <span class="badge badge-danger">
-                                <i class="fas fa-user-clock"></i>
-                                {{ lawyerprofile.experience }} Years
-                            </span>
-                            <span class="badge badge-warning">&euro;{{ lawyerprofile.fee }}</span>
-                            <span class="badge badge-secondary">
-                                <i class="far fa-clock"></i>
-                                {{ lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ lawyerprofile.time_end }}
-                            </span>
-                            <p>
+                            <div>
+                                <span class="badge badge-info">
+                                    <i class="fas fa-city"></i>
+                                    {{ lawyerprofile.user.address.city }}
+                                </span>
+                                <span class="badge badge-danger">
+                                    <i class="fas fa-user-clock"></i>
+                                    {{ lawyerprofile.experience }} Years
+                                </span>
+                                <span class="badge badge-warning">&euro;{{ lawyerprofile.fee }}</span>
+                                <span class="badge badge-secondary">
+                                    <i class="far fa-clock"></i>
+                                    {{ lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ lawyerprofile.time_end }}
+                                </span>
+                            </div>
+                            <div>
                                 <!-- Generally the many-to-many field is not iterable.
                                     Make it iterable by added .all at the end. -->
                                 {% for category in user.lawyerprofile.categories.all %}
-                                <span class="badge badge-success">{{ category.name }}</span>
+                                    <span class="badge badge-success">{{ category.name }}</span>
                                 {% endfor %}
-                            </p>
+                            </div>
+                            <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}"
+                                class="btn btn-sm btn-outline-primary" role="button">
+                                Get Appointment
+                            </a>
                         </div>
                     </a>
 
