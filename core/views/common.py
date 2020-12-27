@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from users.appvars import LAWYER, CUSTOMER
 from core.models import Appointment
 from core.forms.common import AppointmentCreateForm
@@ -45,3 +45,18 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
         # Selecting the present user as the customer
         form.instance.customer = self.request.user
         return super().form_valid(form)
+
+
+# For customer
+class AppointmentListView(ListView):
+    model = Appointment
+    template_name = 'core/appointments.html'
+    context_object_name = 'appointments'
+
+    def get_queryset(self):
+        # Returning the user if exists else 404
+        user = self.request.user
+
+        # Returning all posts by that user with descending (-ve) date ordering
+        return Appointment.objects.filter(
+            customer=user).order_by('-creation_time')

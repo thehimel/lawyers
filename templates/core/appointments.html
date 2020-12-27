@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4 mb-4">
+        {% for appointment in appointments %}
+
+        <!-- col-md will form columns when the screen size >= medium -->
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+            <section>
+                <!-- Card -->
+                <div class="card">
+
+                    <a href="{% url 'core:appointment' appointment.lawyer.id %}" class="btn">
+                        <!-- Content -->
+                        <div class="card-body">
+                            <!-- Name -->
+                            <h4 class="card-title">
+                                {{ appointment.lawyer.get_full_name }}
+                                <!-- Veification icon -->
+                                {% if appointment.lawyer.lawyerprofile.is_verified %}
+                                <i class="far fa-check-circle text-success"></i></i>
+                                {% endif %}
+                            </h4>
+                            <hr>
+
+                            <div>{{ appointment.lawyer.address }}</div> <hr>
+                            <span class="badge badge-info">
+                                <i class="far fa-clock"></i>
+                                {{ appointment.date }} at {{ appointment.time }}
+                            </span>
+                            <hr>
+
+                            <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
+                            {% if appointment.is_paid %}
+                                <span class="badge badge-success">Paid</span>
+                            {% else %}
+                                <span class="badge badge-danger">Not Paid</span>
+                            {% endif %}
+
+                            {% if appointment.is_accepted %}
+                                <span class="badge badge-success">Accepted</span>
+                            {% else %}
+                                <span class="badge badge-danger">Not Accepted</span>
+                            {% endif %}
+
+                            {% if appointment.is_completed %}
+                                <span class="badge badge-success">Completed</span>
+                            {% else %}
+                                <span class="badge badge-secondary">Not Completed</span>
+                            {% endif %}
+                            <hr>
+
+                            <div>
+                                {{ appointment.message }}
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <!-- Card -->
+            </section>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

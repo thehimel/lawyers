@@ -1,9 +1,8 @@
 from django.urls import path
-from core.views.common import HomeView, dashboard, AppointmentCreateView
-from core.views.lawyers import (LawyerDashboardView,
-                                LawyerProfileCreateView,
-                                lawyer_profile_update,
-                                LawyerProfileListView)
+from core.views.common import (HomeView, dashboard,
+                               AppointmentCreateView, AppointmentListView)
+from core.views.lawyers import (LawyerDashboardView, LawyerProfileCreateView,
+                                lawyer_profile_update, LawyerProfileListView)
 from core.views.customers import CustomerDashboardView
 
 
@@ -35,7 +34,10 @@ urlpatterns = [
     path('lawyers/',
          LawyerProfileListView.as_view(), name='lawyers'),
 
-    # url: '/appointment/', name = core:appointment
+    # url: '/appointment/1', name = core:appointment
     path('appointment/<int:pk>',
          AppointmentCreateView.as_view(), name='appointment'),
+
+    # url: '/appointments/', name = core:appointments
+    path('appointments/', AppointmentListView.as_view(), name='appointments'),
 ]
