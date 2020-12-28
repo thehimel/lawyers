@@ -1,0 +1,7 @@
+/*
+In Django BS4, no margin is given in badges. Thus, add a small margin.
+m-1	margin = 0.25rem
+*/
+.badge {
+    margin-bottom: 0.25rem;
+}

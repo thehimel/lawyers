@@ -32,16 +32,16 @@
                             </h4>
                             <hr>
                             <div>
-                                <span class="badge badge-info mb-1">
+                                <span class="badge badge-info">
                                     <i class="fas fa-city"></i>
                                     {{ lawyerprofile.user.address.city }}
                                 </span>
-                                <span class="badge badge-danger mb-1">
+                                <span class="badge badge-danger">
                                     <i class="fas fa-user-clock"></i>
                                     {{ lawyerprofile.experience }} Years
                                 </span>
-                                <span class="badge badge-warning mb-1">&euro;{{ lawyerprofile.fee }}</span>
-                                <span class="badge badge-secondary mb-1">
+                                <span class="badge badge-warning">&euro;{{ lawyerprofile.fee }}</span>
+                                <span class="badge badge-secondary">
                                     <i class="far fa-clock"></i>
                                     {{ lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ lawyerprofile.time_end }}
                                 </span>
@@ -50,7 +50,7 @@
                                 <!-- Generally the many-to-many field is not iterable.
                                     Make it iterable by added .all at the end. -->
                                 {% for category in user.lawyerprofile.categories.all %}
-                                    <span class="badge badge-success mb-1">{{ category.name }}</span>
+                                    <span class="badge badge-success">{{ category.name }}</span>
                                 {% endfor %}
                             </div>
                             <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}"

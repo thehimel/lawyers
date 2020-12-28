@@ -25,9 +25,9 @@
                             <!-- Name -->
                             <h4 class="card-title">{{ user.get_full_name }}</h4>
                             <hr>
-                            <span class="badge badge-secondary mb-1">{{ user.get_user_type_display }}</span>
-                            <span class="badge badge-info mb-1">{{ user.username }}</span>
-                            <span class="badge badge-primary mb-1">{{ user.email }}</span>
+                            <span class="badge badge-secondary">{{ user.get_user_type_display }}</span>
+                            <span class="badge badge-info">{{ user.username }}</span>
+                            <span class="badge badge-primary">{{ user.email }}</span>
 
                             {% if user.address %}
                             <div class="mt-2">
