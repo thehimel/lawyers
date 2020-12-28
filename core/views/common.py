@@ -6,9 +6,7 @@ from core.models import Appointment
 from core.forms.common import AppointmentCreateForm
 from users.models import User
 from django.contrib import messages
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
+from core.views.functions import email_appointment_created
 
 
 class HomeView(TemplateView):
@@ -27,34 +25,6 @@ def dashboard(request):
 
     # If user is not authenticated
     return render(request, 'core:home')
-
-
-def email_created(customer, lawyer, form_data):
-    subject = 'Appointment Booking Confirmation'
-
-    # This format must be followed to show Lawyers as the display name.
-    # The email inside the <> will be replaced with the actual email.
-    sender_name = 'Lawyers <noreply@domain.com>'
-
-    recipients = [customer.email, lawyer.email]
-
-    template_name = 'core/email/appointment_created.html'
-    context = {
-        'customer': customer,
-        'lawyer': lawyer,
-        'form_data': form_data,
-    }
-
-    # render with dynamic value
-    html_content = render_to_string(template_name, context)
-
-    # Strip the html tag. So people can see the pure text at least.
-    text_content = strip_tags(html_content)
-
-    msg = EmailMultiAlternatives(subject, text_content, sender_name,
-                                 recipients, fail_silently=False)
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
 
 
 class AppointmentCreateView(LoginRequiredMixin,
@@ -98,7 +68,7 @@ class AppointmentCreateView(LoginRequiredMixin,
         # Sending email may fail.
         # Using try and except to always save the object.
         try:
-            email_created(customer, lawyer, form.instance)
+            email_appointment_created(customer, lawyer, form.instance)
 
         # If the email is not sent, just proceed.
         except Exception:
