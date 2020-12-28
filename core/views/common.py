@@ -39,15 +39,13 @@ class AppointmentCreateView(LoginRequiredMixin,
 
         # Selecting the user with the pk as the lawyer
         lawyer = User.objects.get(pk=pk)
+        customer = self.request.user
 
         # Check whether the lawyer has a lawyer profile or not.
-        # It is possible that the lawyer doesn't have any lawyerprofile
-        # object. Thus use try and except to stay safe.
-        try:
-            if lawyer.lawyerprofile:
-                return True
-        except Exception:
-            return False
+        # Check lawyer and customer are same or not.
+        if hasattr(lawyer, 'lawyerprofile') and lawyer != customer:
+            return True
+        return False
 
     def form_valid(self, form):
         # We have accepted a value as pk in the url.
