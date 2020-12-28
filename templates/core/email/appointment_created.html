@@ -1,0 +1,14 @@
+<h2>Appointment Successfully Booked</h2>
+
+<h3>Booking Details</h3>
+<hr>
+
+<p>
+    <b>Customer Name:</b> {{ customer.full_name }}<br>
+    <b>Lawyer Name:</b> {{ lawyer.full_name }}<br>
+    <b>Lawyer Address:</b> {{ lawyer.address }}<br>
+    <b>Apppintment Date:</b> {{ form_data.date|date:'d/m/Y' }}<br>
+    <b>Apppintment Time:</b> {{ form_data.time }}<br>
+    <b>Consultation Fee:</b> {{ lawyer.lawyerprofile.fee }}<br>
+    <b>Booking Date and Time:</b> {% now "SHORT_DATETIME_FORMAT" %}<br>
+</p>

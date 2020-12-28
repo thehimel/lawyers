@@ -82,6 +82,10 @@ class User(AbstractUser):
     def is_customer(self):
         return str(self.user_type) == CUSTOMER
 
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Address(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
