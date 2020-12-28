@@ -138,13 +138,11 @@ def content_type_pdf(value):
     # When we create the model, that time file field will be there.
     # When we update the model and don't upload any file, no file
     # file will exist. That time it will through error that content_type
-    # not available. Thus, better solution is to do it with try-except.
-    # When no file field is there, we just pass the function.
-    try:
+    # not available. Thus, we need to check if the object has the attribute.
+    # try-except doesn't work here.
+    if hasattr(value.file, 'content_type'):
         if value.file.content_type not in content_type:
             raise ValidationError('Only PDF files are accepted.')
-    except Exception:
-        pass
 
 
 class LawyerProfile(models.Model):
