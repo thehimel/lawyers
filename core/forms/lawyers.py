@@ -1,6 +1,6 @@
 from django import forms
 from users.models import LawyerProfile
-import datetime as dt
+from bootstrap_datepicker_plus import TimePickerInput
 
 
 class LawyerProfileCreateForm(forms.ModelForm):
@@ -10,16 +10,10 @@ class LawyerProfileCreateForm(forms.ModelForm):
         fields = ['about', 'experience', 'categories',
                   'days', 'time_start', 'time_end', 'fee', 'document']
 
-        # 2 choices are needed for 2 fields, else both fields will be blank.
-        HOUR_CHOICES_1 = [
-            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
-        HOUR_CHOICES_2 = [
-            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
-
-        # Customer widget to show hours in the dropdown list.
+        # Customer widget.
         widgets = {
-            'time_start': forms.Select(choices=HOUR_CHOICES_1),
-            'time_end': forms.Select(choices=HOUR_CHOICES_2)
+            'time_start': TimePickerInput(),
+            'time_end': TimePickerInput(),
         }
 
 
@@ -31,12 +25,8 @@ class LawyerProfileUpdateForm(forms.ModelForm):
         fields = ['about', 'experience', 'categories',
                   'days', 'time_start', 'time_end', 'fee']
 
-        # 2 choices are needed for 2 fields, else both fields will be blank.
-        HOUR_CHOICES_1 = [
-            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
-        HOUR_CHOICES_2 = [
-            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
-
-        # Customer widget to show hours in the dropdown list.
-        widgets = {'time_start': forms.Select(choices=HOUR_CHOICES_1),
-                   'time_end': forms.Select(choices=HOUR_CHOICES_2)}
+        # Customer widget.
+        widgets = {
+            'time_start': TimePickerInput(),
+            'time_end': TimePickerInput(),
+        }

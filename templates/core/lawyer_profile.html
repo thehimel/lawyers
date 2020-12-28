@@ -34,16 +34,16 @@
                                 {% endif %}
                             </h4>
                             <hr>
-                            <span class="badge badge-info">
+                            <span class="badge badge-info mb-1">
                                 <i class="fas fa-city"></i>
                                 {{ user.address.city }}
                             </span>
-                            <span class="badge badge-danger">
+                            <span class="badge badge-danger mb-1">
                                 <i class="fas fa-user-clock"></i>
                                 {{ user.lawyerprofile.experience }} Years
                             </span>
-                            <span class="badge badge-warning">&euro;{{ user.lawyerprofile.fee }}</span>
-                            <span class="badge badge-secondary">
+                            <span class="badge badge-warning mb-1">&euro;{{ user.lawyerprofile.fee }}</span>
+                            <span class="badge badge-secondary mb-1">
                                 <i class="far fa-clock"></i>
                                 {{ user.lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ user.lawyerprofile.time_end }}
                             </span>
@@ -51,7 +51,7 @@
                                 <!-- Generally the many-to-many field is not iterable.
                                     Make it iterable by added .all at the end. -->
                                 {% for category in user.lawyerprofile.categories.all %}
-                                <span class="badge badge-success">{{ category.name }}</span>
+                                <span class="badge badge-success mb-1">{{ category.name }}</span>
                                 {% endfor %}
                             </p>
 

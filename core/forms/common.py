@@ -1,6 +1,6 @@
 from django import forms
 from core.models import Appointment
-import datetime as dt
+from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
 
 
 class AppointmentCreateForm(forms.ModelForm):
@@ -9,10 +9,10 @@ class AppointmentCreateForm(forms.ModelForm):
         model = Appointment
         fields = ['date', 'time', 'message']
 
-        HOUR_CHOICES = [
-            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
-
-        # Customer widget to show hours in the dropdown list.
+        # Customer widget.
         widgets = {
-            'time': forms.Select(choices=HOUR_CHOICES)
+            # All date formats doesn't work. This one works.
+            # https://pypi.org/project/django-bootstrap-datepicker-plus/
+            'date': DatePickerInput(format='%Y-%m-%d'),
+            'time': TimePickerInput(),
         }

@@ -14,3 +14,24 @@
 - [Python Date Time Format](https://www.programiz.com/python-programming/datetime/strptime)
 - [Python Date Time Format Examples](https://stackoverflow.com/questions/34639280/how-to-display-django-time-in-12-hour-time-instead-of-military-24)
 - [Django Template Time Formats](https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#now)
+
+## Customer Widget for Time Picker
+```python
+# Only difference is user can't update the document.
+class LawyerProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = LawyerProfile
+        fields = ['about', 'experience', 'categories',
+                  'days', 'time_start', 'time_end', 'fee']
+
+        # 2 choices are needed for 2 fields, else both fields will be blank.
+        HOUR_CHOICES_1 = [
+            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
+        HOUR_CHOICES_2 = [
+            (dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
+
+        # Customer widget to show hours in the dropdown list.
+        widgets = {'time_start': forms.Select(choices=HOUR_CHOICES_1),
+                   'time_end': forms.Select(choices=HOUR_CHOICES_2)}
+```

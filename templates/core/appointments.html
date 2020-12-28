@@ -34,26 +34,24 @@
                                 </span>
                             </div>
 
-                            <div class="mb-1">
-                                <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
+                            <div>
+                                <span class="badge badge-warning mb-1">&euro;{{ appointment.fee }}</span>
                                 {% if appointment.is_paid %}
-                                    <span class="badge badge-success">Paid</span>
+                                    <span class="badge badge-success mb-1">Paid</span>
                                 {% else %}
-                                    <span class="badge badge-danger">Not Paid</span>
+                                    <span class="badge badge-danger mb-1">Not Paid</span>
                                 {% endif %}
 
                                 {% if appointment.is_accepted %}
-                                    <span class="badge badge-success">Accepted</span>
+                                    <span class="badge badge-success mb-1">Accepted</span>
                                 {% else %}
-                                    <span class="badge badge-danger">Not Accepted</span>
+                                    <span class="badge badge-danger mb-1">Not Accepted</span>
                                 {% endif %}
-                            </div>
 
-                            <div>
                                 {% if appointment.is_completed %}
-                                    <span class="badge badge-success">Completed</span>
+                                    <span class="badge badge-success mb-1">Completed</span>
                                 {% else %}
-                                    <span class="badge badge-secondary">Not Completed</span>
+                                    <span class="badge badge-secondary mb-1">Not Completed</span>
                                 {% endif %}
                             </div>
                             <hr>
