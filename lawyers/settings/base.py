@@ -55,6 +55,9 @@ INSTALLED_APPS = [
 
     # For django-cleanup. Must be on the bottom of INSTALLED_APPS
     'django_cleanup.apps.CleanupConfig',
+
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [

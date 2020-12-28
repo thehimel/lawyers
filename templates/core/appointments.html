@@ -27,30 +27,35 @@
                             <hr>
 
                             <div>{{ appointment.lawyer.address }}</div> <hr>
-                            <span class="badge badge-info">
-                                <i class="far fa-clock"></i>
-                                {{ appointment.date }} at {{ appointment.time }}
-                            </span>
-                            <hr>
+                            <div>
+                                <span class="badge badge-info">
+                                    <i class="far fa-clock"></i>
+                                    {{ appointment.date }} at {{ appointment.time }}
+                                </span>
+                            </div>
 
-                            <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
-                            {% if appointment.is_paid %}
-                                <span class="badge badge-success">Paid</span>
-                            {% else %}
-                                <span class="badge badge-danger">Not Paid</span>
-                            {% endif %}
+                            <div class="mb-1">
+                                <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
+                                {% if appointment.is_paid %}
+                                    <span class="badge badge-success">Paid</span>
+                                {% else %}
+                                    <span class="badge badge-danger">Not Paid</span>
+                                {% endif %}
 
-                            {% if appointment.is_accepted %}
-                                <span class="badge badge-success">Accepted</span>
-                            {% else %}
-                                <span class="badge badge-danger">Not Accepted</span>
-                            {% endif %}
+                                {% if appointment.is_accepted %}
+                                    <span class="badge badge-success">Accepted</span>
+                                {% else %}
+                                    <span class="badge badge-danger">Not Accepted</span>
+                                {% endif %}
+                            </div>
 
-                            {% if appointment.is_completed %}
-                                <span class="badge badge-success">Completed</span>
-                            {% else %}
-                                <span class="badge badge-secondary">Not Completed</span>
-                            {% endif %}
+                            <div>
+                                {% if appointment.is_completed %}
+                                    <span class="badge badge-success">Completed</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">Not Completed</span>
+                                {% endif %}
+                            </div>
                             <hr>
 
                             <div>

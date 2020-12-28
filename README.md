@@ -11,6 +11,7 @@ A Django project that illustrates the implementation of apppointment booking for
 - django-countries==7.0
 - mdb==4.19.1
 - bootstrap==4
+- django-bootstrap-datepicker-plus==3.0.5
 
 ## Other Important Packages
 - psycopg2 - for managing postgres db
@@ -20,6 +21,7 @@ A Django project that illustrates the implementation of apppointment booking for
 - django-cleanup - to delete files when user updates a filefield
 - django-multiselectfield - to allow users select multiple choices
 - django-countries - to show countries as dropdown list
+- django-bootstrap-datepicker-plus - used for datepicker and timepicker
 
 ## Getting Started
 Create and activate virtual env with Miniconda and install dependencies.
