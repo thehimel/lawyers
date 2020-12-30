@@ -83,6 +83,12 @@ You must use a custom template in this signup view.
 
 3. Managers are created internally from admin panel.
 
+## Permissions
+- Appointment Acceptance
+    - Only the lawyer can accept the appointment
+- Appointment Cancellation
+    - Customer, Lawyer, or Manager can cancel an appointment at any time.
+
 ## Frontend
 Boostrap 4.5.3 is used for frontend. [Link](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
