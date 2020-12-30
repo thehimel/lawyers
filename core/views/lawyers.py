@@ -1,11 +1,14 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.views.decorators.cache import never_cache
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from users.decorators import (lawyer_required, user_has_address,
                               user_has_no_lawyer_profile)
 from core.forms.lawyers import LawyerProfileCreateForm, LawyerProfileUpdateForm
 from users.models import LawyerProfile
+from core.models import Appointment
 from django.contrib import messages
 
 
@@ -105,3 +108,23 @@ class LawyerProfileListView(ListView):
     context_object_name = 'lawyerprofiles'
     # ordering = ['-date_created']
     # paginate_by = 5  # Posts per page
+
+
+@method_decorator([never_cache, login_required, lawyer_required],
+                  name='dispatch')
+class AppointmentAcceptView(View):
+    def get(self, request, *args, **kwargs):
+        appointment = get_object_or_404(Appointment, pk=self.kwargs.get('pk'))
+
+        if appointment.lawyer == request.user:
+            if not appointment.is_accepted:
+                appointment.is_accepted = True
+                appointment.save()
+                messages.success(request, 'Appointment accepted.')
+            else:
+                messages.warning(request, 'Appointment is already accepted.')
+
+        else:
+            messages.warning(request, 'Permission denied.')
+
+        return redirect('core:appointments')

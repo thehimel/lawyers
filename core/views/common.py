@@ -1,12 +1,16 @@
-from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from users.appvars import LAWYER, CUSTOMER
+from users.models import User
 from core.models import Appointment
 from core.forms.common import AppointmentCreateForm
-from users.models import User
-from django.contrib import messages
 from core.views.functions import email_appointment_created
+from django.contrib import messages
 
 
 class HomeView(TemplateView):
@@ -76,7 +80,7 @@ class AppointmentCreateView(LoginRequiredMixin,
 
 
 # For customer
-class AppointmentListView(ListView):
+class AppointmentListView(LoginRequiredMixin, ListView):
     model = Appointment
     template_name = 'core/appointments.html'
     context_object_name = 'appointments'
@@ -85,6 +89,45 @@ class AppointmentListView(ListView):
         # Returning the user if exists else 404
         user = self.request.user
 
-        # Returning all posts by that user with descending (-ve) date ordering
-        return Appointment.objects.filter(
-            customer=user).order_by('-creation_time')
+        if user.is_customer:
+            # All appointments of customer user with descending date ordering
+            return Appointment.objects.filter(
+                customer=user).order_by('-creation_time')
+
+        elif user.is_lawyer:
+            return Appointment.objects.filter(
+                lawyer=user).order_by('-creation_time')
+
+        elif user.is_manager:
+            return Appointment.objects.all().order_by('-creation_time')
+
+
+@method_decorator([never_cache, login_required], name='dispatch')
+class AppointmentCancelView(View):
+    def get(self, request, *args, **kwargs):
+        appointment = get_object_or_404(Appointment, pk=self.kwargs.get('pk'))
+
+        if (request.user == appointment.lawyer or
+            request.user == appointment.customer or
+                request.user.is_manager):
+
+            if appointment.is_cancelled:
+                messages.warning(request, 'Appointment is already cancelled.')
+
+            else:
+                if appointment.lawyer == request.user:
+                    appointment.is_cancelled_by_lawyer = True
+
+                elif appointment.customer == request.user:
+                    appointment.is_cancelled_by_customer = True
+
+                elif request.user.is_manager:
+                    appointment.is_cancelled_by_manager = True
+
+                appointment.is_cancelled = True
+                appointment.save()
+                messages.success(request, 'Appointment cancelled.')
+        else:
+            messages.warning(request, 'Permission denied.')
+
+        return redirect('core:appointments')

@@ -25,6 +25,10 @@ class Appointment(models.Model):
 
     is_paid = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)
+    is_cancelled = models.BooleanField(default=False)
+    is_cancelled_by_lawyer = models.BooleanField(default=False)
+    is_cancelled_by_customer = models.BooleanField(default=False)
+    is_cancelled_by_manager = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):

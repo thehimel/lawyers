@@ -9,58 +9,78 @@
 
         <!-- col-md will form columns when the screen size >= medium -->
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-            <section>
+            <section class="text-center">
                 <!-- Card -->
                 <div class="card">
 
-                    <a href="{% url 'core:appointment_create' appointment.lawyer.id %}" class="btn">
-                        <!-- Content -->
-                        <div class="card-body">
-                            <!-- Name -->
-                            <h4 class="card-title">
-                                {{ appointment.lawyer.get_full_name }}
-                                <!-- Veification icon -->
-                                {% if appointment.lawyer.lawyerprofile.is_verified %}
-                                <i class="far fa-check-circle text-success"></i></i>
-                                {% endif %}
-                            </h4>
-                            <hr>
+                    <!-- Content -->
+                    <div class="card-body">
+                        <!-- Name -->
+                        <h4 class="card-title">
+                            {{ appointment.lawyer.get_full_name }}
+                            <!-- Veification icon -->
+                            {% if appointment.lawyer.lawyerprofile.is_verified %}
+                            <i class="far fa-check-circle text-success"></i></i>
+                            {% endif %}
+                        </h4>
+                        <hr>
 
-                            <div>{{ appointment.lawyer.address }}</div> <hr>
-                            <div>
-                                <span class="badge badge-info">
-                                    <i class="far fa-clock"></i>
-                                    {{ appointment.date }} at {{ appointment.time }}
-                                </span>
-                            </div>
-
-                            <div>
-                                <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
-                                {% if appointment.is_paid %}
-                                    <span class="badge badge-success">Paid</span>
-                                {% else %}
-                                    <span class="badge badge-danger">Not Paid</span>
-                                {% endif %}
-
-                                {% if appointment.is_accepted %}
-                                    <span class="badge badge-success">Accepted</span>
-                                {% else %}
-                                    <span class="badge badge-danger">Not Accepted</span>
-                                {% endif %}
-
-                                {% if appointment.is_completed %}
-                                    <span class="badge badge-success">Completed</span>
-                                {% else %}
-                                    <span class="badge badge-secondary">Not Completed</span>
-                                {% endif %}
-                            </div>
-                            <hr>
-
-                            <div>
-                                {{ appointment.message }}
-                            </div>
+                        <div>{{ appointment.lawyer.address }}</div> <hr>
+                        <div>
+                            <span class="badge badge-info">
+                                <i class="far fa-clock"></i>
+                                {{ appointment.date }} at {{ appointment.time }}
+                            </span>
                         </div>
-                    </a>
+
+                        <div>
+                            <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
+                            {% if appointment.is_paid %}
+                                <span class="badge badge-success">Paid</span>
+                            {% else %}
+                                <span class="badge badge-danger">Not Paid</span>
+                            {% endif %}
+
+                            {% if appointment.is_cancelled_by_lawyer %}
+                                <span class="badge badge-danger">Cancelled by Lawyer</span>
+                            {% elif appointment.is_cancelled_by_customer %}
+                                <span class="badge badge-warning">Cancelled by Customer</span>
+                            {% elif appointment.is_cancelled_by_manager %}
+                                <span class="badge badge-danger">Cancelled by Manager</span>
+                            {% elif appointment.is_accepted %}
+                                <span class="badge badge-success">Accepted</span>
+                            {% else %}
+                                <span class="badge badge-warning">Pending</span>
+                            {% endif %}
+
+                            {% if appointment.is_completed %}
+                                <span class="badge badge-success">Completed</span>
+                            {% else %}
+                                <span class="badge badge-secondary">Not Completed</span>
+                            {% endif %}
+                        </div>
+                        <hr>
+
+                        <div>
+                            {{ appointment.message }}
+                        </div>
+
+                        <div class="text-center mt-2">
+                            {% if user.is_lawyer and not appointment.is_accepted%}
+                                <a href="{% url 'core:appointment_accept' appointment.id %}"
+                                    class="btn btn-sm btn-outline-primary" role="button">
+                                    Accept
+                                </a>
+                            {% endif %}
+
+                            {% if not appointment.is_cancelled%}
+                                <a href="{% url 'core:appointment_cancel' appointment.id %}"
+                                    class="btn btn-sm btn-outline-danger" role="button">
+                                    Cancel
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
 
                 </div>
                 <!-- Card -->
