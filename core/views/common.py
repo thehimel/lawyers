@@ -28,7 +28,7 @@ def dashboard(request):
             return redirect('core:customer_dashboard')
 
     # If user is not authenticated
-    return render(request, 'core:home')
+    return redirect('core:home')
 
 
 class AppointmentCreateView(LoginRequiredMixin,

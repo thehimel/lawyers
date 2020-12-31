@@ -14,6 +14,11 @@
 - [Python Date Time Format](https://www.programiz.com/python-programming/datetime/strptime)
 - [Python Date Time Format Examples](https://stackoverflow.com/questions/34639280/how-to-display-django-time-in-12-hour-time-instead-of-military-24)
 - [Django Template Time Formats](https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#now)
+- [Django Template Time with 12 Hour Format and Lowercase](https://stackoverflow.com/questions/12218620/in-django-how-to-display-times-with-lowercase-am-pm-in-templates)
+- {{ form_data.date|date:'d/m/Y' }} shows date as 30/12/2020 and {{ form_data.date|date:'d-m-Y' }} shows date as 30-12-2020.
+- {{ form_data.time|date:'H:i' }} shows date as 14:20.
+- {{ form_data.time|date:'g:i A' }} shows date as 02:20 PM and {{ form_data.time|date:'g:i A'|lower }} shows date as 02:20 pm.
+- {% now "d-m-Y g:i A" %} shows current time as 30-12-2020 02:20 PM
 
 ## Customer Widget for Time Picker
 ```python

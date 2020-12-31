@@ -16,12 +16,33 @@
                     <!-- Content -->
                     <div class="card-body">
                         <!-- Name -->
-                        <h4 class="card-title">
-                            {{ appointment.lawyer.get_full_name }}
-                            <!-- Veification icon -->
-                            {% if appointment.lawyer.lawyerprofile.is_verified %}
-                            <i class="far fa-check-circle text-success"></i></i>
+                        <h6 class="card-title">
+                            {# For customer, show lawyer's name #}
+                            {% if user.is_customer %}
+                                <i class="fas fa-layer-group"></i>
+                                {{ appointment.lawyer.get_full_name }}
+                                <!-- Veification icon -->
+                                {% if appointment.lawyer.lawyerprofile.is_verified %}
+                                    <i class="far fa-check-circle text-success"></i></i>
+                                {% endif %}
+                            {# For lawyer, show customer's name #}
+                            {% elif user.is_lawyer %}
+                                <i class="fas fa-user"></i>
+                                {{ appointment.customer.get_full_name }}
+                            {# For manager, show both names #}
+                            {% elif user.is_manager %}
+                                <i class="fas fa-layer-group"></i>
+                                {{ appointment.lawyer.get_full_name }}
+                                <!-- Veification icon -->
+                                {% if appointment.lawyer.lawyerprofile.is_verified %}
+                                    <i class="far fa-check-circle text-success"></i></i>
+                                {% endif %}
+                                <br>
+                                <i class="fas fa-user"></i>
+                                {{ appointment.customer.get_full_name }}
                             {% endif %}
+
+
                         </h4>
                         <hr>
 
@@ -29,17 +50,22 @@
                         <div>
                             <span class="badge badge-info">
                                 <i class="far fa-clock"></i>
-                                {{ appointment.date }} at {{ appointment.time }}
+                                {{ appointment.date|date:'d-m-Y' }} at {{ appointment.time|date:'g:i A' }}
                             </span>
                         </div>
 
                         <div>
-                            <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
+                            <span class="badge badge-secondary">
+                                <i class="fas fa-hashtag"></i>
+                                {{ appointment.id }}
+                            </span>
+
                             {% if appointment.is_paid %}
                                 <span class="badge badge-success">Paid</span>
                             {% else %}
                                 <span class="badge badge-danger">Not Paid</span>
                             {% endif %}
+                            <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
 
                             {% if appointment.is_cancelled_by_lawyer %}
                                 <span class="badge badge-danger">Cancelled by Lawyer</span>
