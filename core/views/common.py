@@ -121,19 +121,19 @@ class AppointmentCancelView(View):
                 messages.warning(request, 'Appointment is already cancelled.')
 
             else:
-                if appointment.lawyer == request.user:
-                    appointment.is_cancelled_by_lawyer = True
+                if request.user.is_manager:
+                    appointment.cancelled_by = MANAGER
+
+                elif appointment.lawyer == request.user:
+                    appointment.cancelled_by = LAWYER
 
                 elif appointment.customer == request.user:
-                    appointment.is_cancelled_by_customer = True
+                    appointment.cancelled_by = CUSTOMER
 
-                elif request.user.is_manager:
-                    appointment.is_cancelled_by_manager = True
-
-                appointment.is_cancelled = True
                 appointment.save()
                 messages.success(request, 'Appointment cancelled.')
         else:
             messages.warning(request, 'Permission denied.')
 
-        return redirect('core:appointments')
+        # Redirect to previous page
+        return redirect(request.META.get('HTTP_REFERER', '/'))

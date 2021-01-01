@@ -1,6 +1,9 @@
 from django.db import models
 from users.models import User
 from django.urls import reverse
+from users.appvars import (
+    MANAGER, LAWYER, CUSTOMER, USER_TYPE_CHOICES
+)
 
 
 class Appointment(models.Model):
@@ -25,11 +28,28 @@ class Appointment(models.Model):
 
     is_paid = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)
-    is_cancelled = models.BooleanField(default=False)
-    is_cancelled_by_lawyer = models.BooleanField(default=False)
-    is_cancelled_by_customer = models.BooleanField(default=False)
-    is_cancelled_by_manager = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
+
+    NONE = ''
+    CANCELLED_BY_CHOICES = [(NONE, 'None')] + USER_TYPE_CHOICES
+    cancelled_by = models.CharField(max_length=1, choices=CANCELLED_BY_CHOICES,
+                                    default=NONE, verbose_name="Cancelled By")
+
+    @property
+    def is_cancelled(self):
+        return str(self.cancelled_by) != self.NONE
+
+    @property
+    def is_cancelled_by_manager(self):
+        return str(self.cancelled_by) == MANAGER
+
+    @property
+    def is_cancelled_by_lawyer(self):
+        return str(self.cancelled_by) == LAWYER
+
+    @property
+    def is_cancelled_by_customer(self):
+        return str(self.cancelled_by) == CUSTOMER
 
     def __str__(self):
         return f'{self.lawyer.username} with {self.customer.username}\
