@@ -43,15 +43,17 @@ def valid_date_time(form, request, lawyer):
     # date = form.cleaned_data['date']
     time = form.cleaned_data['time']
 
+    valid = True
+
     # If we display only str(time_start), it shows like 14:20:00.
     # Thus, we are taking only first 5 characters to display 14:20.
     if time < time_start or time > time_end:
         messages.warning(
             request, f'Appointment time must be between \
                 {str(time_start)[:5]} and {str(time_end)[:5]}')
-        return False
+        valid = False
 
-    return True
+    return valid
 
 
 # One lawyer can't book appointment for another lawyer
