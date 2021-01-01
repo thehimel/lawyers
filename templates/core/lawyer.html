@@ -34,10 +34,17 @@
                             <i class="far fa-file-alt"></i>
                             Official Document
                         </a>
+                        {% if not lawyerprofile.is_verified %}
                         <a href="{% url 'core:verify' lawyerprofile.id %}"
                             class="btn btn-sm btn-success" role="button">
                             Verify
                         </a>
+                        {% else %}
+                        <a href="{% url 'core:unverify' lawyerprofile.id %}"
+                            class="btn btn-sm btn-danger" role="button">
+                            Unverify
+                        </a>
+                        {% endif %}
                     {% endif %}
                 </div>
 

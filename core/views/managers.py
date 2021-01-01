@@ -35,16 +35,32 @@ class VerifyLawyerProfileView(View):
         lawyerprofile = get_object_or_404(
             LawyerProfile, pk=self.kwargs.get('pk'))
 
-        if (request.user.is_manager):
-            if lawyerprofile.is_verified:
-                messages.warning(request, 'Lawyer is already verified.')
+        if lawyerprofile.is_verified:
+            messages.warning(request, 'Lawyer is already verified.')
 
-            else:
-                lawyerprofile.is_verified = True
-                lawyerprofile.save()
-                messages.success(request, 'Lawyer verification successful.')
         else:
-            messages.warning(request, 'Permission denied.')
+            lawyerprofile.is_verified = True
+            lawyerprofile.save()
+            messages.success(request, 'Lawyer verification successful.')
+
+        # Redirect to previous page
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@method_decorator([never_cache, login_required, manager_required],
+                  name='dispatch')
+class UnverifyLawyerProfileView(View):
+    def get(self, request, *args, **kwargs):
+        lawyerprofile = get_object_or_404(
+            LawyerProfile, pk=self.kwargs.get('pk'))
+
+        if not lawyerprofile.is_verified:
+            messages.warning(request, 'Lawyer is not yet verified.')
+
+        else:
+            lawyerprofile.is_verified = False
+            lawyerprofile.save()
+            messages.success(request, 'Lawyer unverified successfully.')
 
         # Redirect to previous page
         return redirect(request.META.get('HTTP_REFERER', '/'))

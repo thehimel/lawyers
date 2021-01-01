@@ -6,7 +6,8 @@ from core.views.lawyers import (LawyerDashboardView, LawyerProfileCreateView,
                                 LawyerProfileListView, LawyerProfileDetailView,
                                 lawyer_profile_update, AppointmentAcceptView)
 from core.views.customers import CustomerDashboardView
-from core.views.managers import ManagerDashboardView, VerifyLawyerProfileView
+from core.views.managers import (ManagerDashboardView, VerifyLawyerProfileView,
+                                 UnverifyLawyerProfileView)
 
 
 app_name = 'core'
@@ -48,6 +49,10 @@ urlpatterns = [
     # url: '/lawyers/verify/1', name = core:verify
     path('lawyers/verify/<int:pk>/',
          VerifyLawyerProfileView.as_view(), name='verify'),
+
+    # url: '/lawyers/unverify/1', name = core:verify
+    path('lawyers/unverify/<int:pk>/',
+         UnverifyLawyerProfileView.as_view(), name='unverify'),
 
     # url: '/appointments/1', name = core:appointment
     path('appointments/<int:pk>/',
