@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from users.mixins import NotLawyerMixin
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
-from users.appvars import LAWYER, CUSTOMER
+from users.appvars import MANAGER, LAWYER, CUSTOMER
 from users.models import User
 from core.models import Appointment
 from core.forms.common import AppointmentCreateForm
@@ -22,6 +22,9 @@ class HomeView(TemplateView):
 def dashboard(request):
 
     if request.user.is_authenticated:
+        if request.user.user_type == MANAGER:
+            return redirect('core:manager_dashboard')
+
         if request.user.user_type == LAWYER:
             return redirect('core:lawyer_dashboard')
 

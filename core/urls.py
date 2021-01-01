@@ -6,6 +6,7 @@ from core.views.lawyers import (LawyerDashboardView, LawyerProfileCreateView,
                                 lawyer_profile_update, LawyerProfileListView,
                                 AppointmentAcceptView)
 from core.views.customers import CustomerDashboardView
+from core.views.managers import ManagerDashboardView
 
 
 app_name = 'core'
@@ -13,6 +14,10 @@ app_name = 'core'
 urlpatterns = [
     # url: '/', name = core:home
     path('', HomeView.as_view(), name='home'),
+
+    # url: '/managers/dashboard', name = core:manager_dashboard
+    path('managers/dashboard/',
+         ManagerDashboardView.as_view(), name='manager_dashboard'),
 
     # url: '/lawyers/dashboard/', name = core:lawyer_dashboard
     path('lawyers/dashboard/',
