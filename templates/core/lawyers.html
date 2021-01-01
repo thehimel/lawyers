@@ -53,10 +53,12 @@
                                     <span class="badge badge-success">{{ category.name }}</span>
                                 {% endfor %}
                             </div>
-                            <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}"
-                                class="btn btn-sm btn-outline-primary" role="button">
-                                Get Appointment
-                            </a>
+                            {% if not user.is_lawyer %}
+                                <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}"
+                                    class="btn btn-sm btn-outline-primary" role="button">
+                                    Get Appointment
+                                </a>
+                            {% endif %}
                         </div>
                     </a>
 

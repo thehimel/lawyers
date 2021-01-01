@@ -11,4 +11,6 @@ class NotLawyerMixin:
         else:
             messages.warning(request, 'One lawyer can not book appointment\
                      for another lawyer.')
-            return redirect('core:appointments')
+
+            # Redirect to previous page
+            return redirect(request.META.get('HTTP_REFERER', '/'))

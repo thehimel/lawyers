@@ -40,3 +40,6 @@ class LawyerProfileUpdateForm(forms.ModelForm):
         widgets = {'time_start': forms.Select(choices=HOUR_CHOICES_1),
                    'time_end': forms.Select(choices=HOUR_CHOICES_2)}
 ```
+
+## [Redirect to Previous Page](https://stackoverflow.com/questions/35796195/how-to-redirect-to-previous-page-in-django-after-post-request/35796330)
+
