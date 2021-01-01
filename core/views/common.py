@@ -7,11 +7,13 @@ from users.mixins import NotLawyerMixin
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from users.appvars import MANAGER, LAWYER, CUSTOMER
+from core.appvars import APPOINTMENT_DATE_MAX_LIMIT_IN_DAYS
 from users.models import User
 from core.models import Appointment
 from core.forms.common import AppointmentCreateForm
 from core.views.functions import email_appointment_created
 from django.contrib import messages
+from datetime import date
 
 
 class HomeView(TemplateView):
@@ -40,20 +42,27 @@ def dashboard(request):
 def valid_date_time(form, request, lawyer):
     time_start = lawyer.lawyerprofile.time_start
     time_end = lawyer.lawyerprofile.time_end
-    # date = form.cleaned_data['date']
+    appointment_date = form.cleaned_data['date']
     time = form.cleaned_data['time']
 
-    valid = True
+    is_valid = True
+
+    today = date.today()
+    limit = APPOINTMENT_DATE_MAX_LIMIT_IN_DAYS
+    if abs((appointment_date - today).days) > limit:
+        messages.warning(
+            request, f'Appointment date must be within {limit} days.')
+        is_valid = False
 
     # If we display only str(time_start), it shows like 14:20:00.
     # Thus, we are taking only first 5 characters to display 14:20.
     if time < time_start or time > time_end:
         messages.warning(
             request, f'Appointment time must be between \
-                {str(time_start)[:5]} and {str(time_end)[:5]}')
-        valid = False
+                {str(time_start)[:5]} and {str(time_end)[:5]}.')
+        is_valid = False
 
-    return valid
+    return is_valid
 
 
 # One lawyer can't book appointment for another lawyer

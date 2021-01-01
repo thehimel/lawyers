@@ -43,3 +43,4 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 
 ## [Redirect to Previous Page](https://stackoverflow.com/questions/35796195/how-to-redirect-to-previous-page-in-django-after-post-request/35796330)
 
+## [Difference Between 2 Dates in Python](https://stackoverflow.com/questions/8419564/difference-between-two-dates-in-python)
