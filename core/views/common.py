@@ -49,9 +49,15 @@ def valid_date_time(form, request, lawyer):
 
     today = date.today()
     limit = APPOINTMENT_DATE_MAX_LIMIT_IN_DAYS
+
+    if appointment_date < today:
+        messages.warning(
+            request, 'Appointment date can not be in past.')
+        is_valid = False
+
     if abs((appointment_date - today).days) > limit:
         messages.warning(
-            request, f'Appointment date must be within {limit} days.')
+            request, f'Appointment date must be within next {limit} days.')
         is_valid = False
 
     # If we display only str(time_start), it shows like 14:20:00.
