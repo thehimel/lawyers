@@ -110,6 +110,7 @@ class LawyerProfileListView(ListView):
     # paginate_by = 5  # Posts per page
 
 
+@method_decorator([login_required], name='dispatch')
 class LawyerProfileDetailView(DetailView):
     model = LawyerProfile
     context_object_name = 'lawyerprofile'
