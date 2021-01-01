@@ -44,3 +44,5 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 ## [Redirect to Previous Page](https://stackoverflow.com/questions/35796195/how-to-redirect-to-previous-page-in-django-after-post-request/35796330)
 
 ## [Difference Between 2 Dates in Python](https://stackoverflow.com/questions/8419564/difference-between-two-dates-in-python)
+
+## [Django Template View for Empty List](https://stackoverflow.com/questions/902034/how-can-i-check-the-size-of-a-collection-within-a-django-template)

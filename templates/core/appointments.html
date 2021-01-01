@@ -112,6 +112,15 @@
                 <!-- Card -->
             </section>
         </div>
+
+        {# When the list is empty #}
+        {% empty %}
+        <div class="col-12">
+            <h4 class="text-center">
+                No Appointment Yet.
+            </h4>
+        </div>
+
         {% endfor %}
     </div>
 </div>
