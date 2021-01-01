@@ -29,6 +29,12 @@
                         <i class="far fa-check-circle text-success"></i></i>
                         {% endif %}
                     </h4>
+                    {% if user.is_manager %}
+                        <a href="{{lawyerprofile.document.url}}" class="btn btn-primary btn-sm">
+                            <i class="far fa-file-alt"></i>
+                            Official Document
+                        </a>
+                    {% endif %}
                 </div>
 
             </div>
