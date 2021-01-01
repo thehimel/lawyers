@@ -13,7 +13,8 @@
                 <!-- Card -->
                 <div class="card text-center">
 
-                    <a href="{% url 'core:lawyers' %}" class="btn">
+                    {# To view lawyer profile we are using DetailView on LawyerProfile model. #}
+                    <a href="{% url 'core:lawyer' lawyerprofile.id %}" class="btn">
                         <!-- Avatar -->
                         <div class="avatar mx-auto white mt-4">
                             <img src="{{ lawyerprofile.user.pro_pic.url }}" class="rounded-circle img-fluid" alt="Profile Avatar">
@@ -43,13 +44,15 @@
                                 <span class="badge badge-warning">&euro;{{ lawyerprofile.fee }}</span>
                                 <span class="badge badge-secondary">
                                     <i class="far fa-clock"></i>
-                                    {{ lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ lawyerprofile.time_end }}
+                                    {{ lawyerprofile.time_start|date:'g:i A' }}
+                                    <i class="fas fa-minus"></i>
+                                    {{ lawyerprofile.time_end|date:'g:i A' }}
                                 </span>
                             </div>
                             <div>
                                 <!-- Generally the many-to-many field is not iterable.
                                     Make it iterable by added .all at the end. -->
-                                {% for category in user.lawyerprofile.categories.all %}
+                                {% for category in lawyerprofile.categories.all %}
                                     <span class="badge badge-success">{{ category.name }}</span>
                                 {% endfor %}
                             </div>

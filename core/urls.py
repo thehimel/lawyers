@@ -3,8 +3,8 @@ from core.views.common import (HomeView, dashboard,
                                AppointmentCreateView, AppointmentListView,
                                AppointmentCancelView)
 from core.views.lawyers import (LawyerDashboardView, LawyerProfileCreateView,
-                                lawyer_profile_update, LawyerProfileListView,
-                                AppointmentAcceptView)
+                                LawyerProfileListView, LawyerProfileDetailView,
+                                lawyer_profile_update, AppointmentAcceptView)
 from core.views.customers import CustomerDashboardView
 from core.views.managers import ManagerDashboardView
 
@@ -41,8 +41,12 @@ urlpatterns = [
     path('lawyers/',
          LawyerProfileListView.as_view(), name='lawyers'),
 
+    # url: '/lawyers/1', name = core:lawyer
+    path('lawyers/<int:pk>/',
+         LawyerProfileDetailView.as_view(), name='lawyer'),
+
     # url: '/appointments/1', name = core:appointment
-    path('appointments/<int:pk>',
+    path('appointments/<int:pk>/',
          AppointmentCreateView.as_view(), name='appointment_create'),
 
     # url: '/appointments/', name = core:appointments

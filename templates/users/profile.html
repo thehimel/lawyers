@@ -2,7 +2,9 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Profile" %}{% endblock %}
+{% block head_title %}
+    {% trans "Profile - "|add:user.get_full_name %}
+{% endblock %}
 
 {% block content %}
 <main>

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "Lawyer - "|add:lawyerprofile.user.get_full_name %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4 mb-4">
+
+        <!-- col-md will form columns when the screen size >= medium -->
+        <div class="col-md-4">
+             <!-- Card -->
+             <div class="card text-center">
+
+                <!-- Avatar -->
+                <div class="avatar mx-auto white mt-4">
+                    <img src="{{ lawyerprofile.user.pro_pic.url }}" class="rounded-circle img-fluid" alt="Profile Avatar">
+                </div>
+                <hr>
+
+                <!-- Content -->
+                <div class="card-body">
+                    <!-- Name -->
+                    <h4 class="card-title">
+                        {{ lawyerprofile.user.get_full_name }}
+                        <!-- Veification icon -->
+                        {% if lawyerprofile.is_verified %}
+                        <i class="far fa-check-circle text-success"></i></i>
+                        {% endif %}
+                    </h4>
+                </div>
+
+            </div>
+            <!-- Card -->
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="badge badge-success">
+                            <i class="fas fa-address-card"></i>
+                            About
+                        </span>
+                        <div>
+                            {{ lawyerprofile.about }}
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-info">
+                            <i class="fas fa-city"></i>
+                            Address
+                        </span>
+                        <div>{{ lawyerprofile.user.address }}</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-danger">
+                            <i class="fas fa-user-clock"></i>
+                            Experience
+                        </span>
+                        <div>{{ lawyerprofile.experience }} Years</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-warning">
+                            <i class="fas fa-money-bill"></i>
+                            Consultation Fee
+                        </span>
+                        <div>&euro;{{ lawyerprofile.fee }}</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-secondary">
+                            <i class="far fa-clock"></i>
+                            Office Hours
+                        </span>
+                        <div>
+                            {{ lawyerprofile.time_start|date:'g:i A' }}
+                            <i class="fas fa-minus"></i>
+                            {{ lawyerprofile.time_end|date:'g:i A' }}
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge badge-primary">
+                            <i class="fas fa-list"></i>
+                            Categories
+                        </span>
+                        <div>
+                            <!-- Generally the many-to-many field is not iterable.
+                            Make it iterable by added .all at the end. -->
+                            {% for category in lawyerprofile.categories.all %}
+                                <span class="badge badge-success">{{ category.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        {% if not user.is_lawyer %}
+                            <a href="{% url 'core:appointment_create' lawyerprofile.user.id %}"
+                                class="btn btn-sm btn-outline-primary" role="button">
+                                Get Appointment
+                            </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from users.decorators import (lawyer_required, user_has_address,
                               user_has_no_lawyer_profile)
 from core.forms.lawyers import LawyerProfileCreateForm, LawyerProfileUpdateForm
@@ -108,6 +108,12 @@ class LawyerProfileListView(ListView):
     context_object_name = 'lawyerprofiles'
     # ordering = ['-date_created']
     # paginate_by = 5  # Posts per page
+
+
+class LawyerProfileDetailView(DetailView):
+    model = LawyerProfile
+    context_object_name = 'lawyerprofile'
+    template_name = 'core/lawyer.html'
 
 
 @method_decorator([never_cache, login_required, lawyer_required],
