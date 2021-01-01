@@ -1,7 +1,7 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from users.mixins import NotLawyerMixin
 from django.views import View
@@ -35,6 +35,25 @@ def dashboard(request):
     return redirect('core:home')
 
 
+# This is a function, thus it can't redirect the control to another route.
+# It can only return True or False.
+def valid_date_time(form, request, lawyer):
+    time_start = lawyer.lawyerprofile.time_start
+    time_end = lawyer.lawyerprofile.time_end
+    # date = form.cleaned_data['date']
+    time = form.cleaned_data['time']
+
+    # If we display only str(time_start), it shows like 14:20:00.
+    # Thus, we are taking only first 5 characters to display 14:20.
+    if time < time_start or time > time_end:
+        messages.warning(
+            request, f'Appointment time must be between \
+                {str(time_start)[:5]} and {str(time_end)[:5]}')
+        return False
+
+    return True
+
+
 # One lawyer can't book appointment for another lawyer
 # Customers and managers can book appointment.
 class AppointmentCreateView(LoginRequiredMixin, NotLawyerMixin,
@@ -63,6 +82,11 @@ class AppointmentCreateView(LoginRequiredMixin, NotLawyerMixin,
 
         # Selecting the user with the pk as the lawyer
         lawyer = User.objects.get(pk=pk)
+        if not valid_date_time(form, self.request, lawyer):
+            # Rendering this template with the present form data
+            return render(self.request,
+                          'core/appointment.html', {'form': form})
+
         form.instance.lawyer = User.objects.get(pk=pk)
 
         # Saving the fee of the lawyer as the fee of this appointment
