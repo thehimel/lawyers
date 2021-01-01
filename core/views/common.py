@@ -1,8 +1,9 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from users.mixins import NotLawyerMixin
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from users.appvars import LAWYER, CUSTOMER
@@ -31,7 +32,9 @@ def dashboard(request):
     return redirect('core:home')
 
 
-class AppointmentCreateView(LoginRequiredMixin,
+# One lawyer can't book appointment for another lawyer
+# Customers and managers can book appointment.
+class AppointmentCreateView(LoginRequiredMixin, NotLawyerMixin,
                             UserPassesTestMixin, CreateView):
     model = Appointment
     form_class = AppointmentCreateForm

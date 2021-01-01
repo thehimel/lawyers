@@ -13,3 +13,6 @@ CATEGORY_MAX_LENGTH = 50
 MANAGER = 'M'
 LAWYER = 'L'
 CUSTOMER = 'C'
+
+USER_TYPE_CHOICES = [(MANAGER, 'Manager'),
+                     (LAWYER, 'Lawyer'), (CUSTOMER, 'Customer')]

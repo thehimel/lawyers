@@ -5,8 +5,9 @@ from django.urls import reverse
 from multiselectfield import MultiSelectField
 from django_countries.fields import CountryField
 from users.appvars import (
-    MANAGER, LAWYER, CUSTOMER, FIRST_NAME_MAX_LENGTH,
-    LAST_NAME_MAX_LENGTH, CATEGORY_MAX_LENGTH
+    MANAGER, LAWYER, CUSTOMER, USER_TYPE_CHOICES,
+    FIRST_NAME_MAX_LENGTH, LAST_NAME_MAX_LENGTH,
+    CATEGORY_MAX_LENGTH
 )
 from django.core.exceptions import ValidationError
 
@@ -43,9 +44,6 @@ class User(AbstractUser):
         max_length=FIRST_NAME_MAX_LENGTH, verbose_name="First Name")
     last_name = models.CharField(
         max_length=LAST_NAME_MAX_LENGTH, verbose_name="Last Name")
-
-    USER_TYPE_CHOICES = [(MANAGER, 'Manager'),
-                         (LAWYER, 'Lawyer'), (CUSTOMER, 'Customer')]
 
     # The first option is kept empty, to show the corresponding text as
     # the first option in the dropdown
