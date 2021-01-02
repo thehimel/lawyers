@@ -105,13 +105,19 @@ Files used in defaults won't get deleted.
 You can also use django-unused-media when you already have junk files. [Link](https://pypi.org/project/django-unused-media/)
 This is a command line tool that can delete unused files.
 
-## Important Note
+## Important Notes
+### email_confirmation_subject
 In the database, you must rename the site to include your site_name in emails.
 You must change the default email_confirmation_subject. Changing a little bit will be enough. Otherwise it will add [example.com] in the subject.
 
 'src/templates/account/email/email_confirmation_subject.txt'
 Default: Please Confirm Your E-mail Address
 Customized: Please Confirm The E-mail Address
+
+### Solution to Heroku Internal Server Error 500 on Sending Email using Gmail SMTP
+- [Allow less secure apps](https://support.google.com/accounts/answer/6010255?hl=en)
+- [Display Unlock Captcha](https://accounts.google.com/DisplayUnlockCaptcha)
+- Display Unlock Captcha is very very important, else it will block login from heroku app.
 
 ## Production Status
 Is the project production ready?
