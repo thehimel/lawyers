@@ -35,7 +35,7 @@
     {% endblock extra_head %}
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- Start your project here-->
     {% block body %}
@@ -131,31 +131,40 @@
     </nav>
     <!-- Navbar end -->
 
-    <!-- Messages with BS Dismissing Alert -->
-    {% if messages %}
-    {% for message in messages %}
-    <div class="text-center alert alert-dismissible fade show alert-{% if messages.tags %}{{ message.tags }}{% else %}info{% endif %}"
-        role="alert">
+    <main class="flex-fill">
+        <!-- Messages with BS Dismissing Alert -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="text-center alert alert-dismissible fade show alert-{% if messages.tags %}{{ message.tags }}{% else %}info{% endif %}"
+            role="alert">
 
-        {{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
 
-    </div>
-    {% endfor %}
-    {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
 
-    <!-- Content -->
-    {% block content %}
-    {% endblock content %}
+        <!-- Content -->
+        {% block content %}
+        {% endblock content %}
 
-    {% endblock body %}
+        {% endblock body %}
 
-    <!-- Extra Body -->
-    {% block extra_body %}
-    {% endblock extra_body %}
-    <!-- End your project here-->
+        <!-- Extra Body -->
+        {% block extra_body %}
+        {% endblock extra_body %}
+        <!-- End your project here-->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <hr>
+        <p class="float-right"><a href="#"><i class="fas fa-arrow-up fa-2x"></i></a></p>
+        <p>&copy; 2020-2020 Lawyers &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
 
 </body>
 

@@ -46,3 +46,16 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 ## [Difference Between 2 Dates in Python](https://stackoverflow.com/questions/8419564/difference-between-two-dates-in-python)
 
 ## [Django Template View for Empty List](https://stackoverflow.com/questions/902034/how-can-i-check-the-size-of-a-collection-within-a-django-template)
+
+## [Bootstrap 4 Sticky Footer](https://stackoverflow.com/questions/46722697/bootstrap-4-sticky-footer-not-sticking)
+
+```html
+<div class="d-flex flex-column min-vh-100">
+    <nav>
+    </nav>
+    <main class="flex-fill">
+    </main>
+    <footer>
+    </footer>
+</div>
+```
