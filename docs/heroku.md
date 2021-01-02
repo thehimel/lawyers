@@ -107,3 +107,10 @@ python ./src/manage.py migrate
 heroku run python manage.py makemigrations --app mntest01
 heroku run python manage.py migrate --app mntest01
 ```
+
+## Add These Config Vars
+DATABASE_URL (Automatically added after initializing Postgres addon)
+DEBUG = False
+EMAIL_PASS
+EMAIL_USER
+SECRET_KEY

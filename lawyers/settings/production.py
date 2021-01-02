@@ -6,7 +6,7 @@ import dj_database_url
 DEBUG = config('DEBUG', cast=bool)
 
 # Include your hosts here
-ALLOWED_HOSTS = ['multiusers.herokuapp.com']
+ALLOWED_HOSTS = ['thelawyers.herokuapp.com']
 
 # Redirect non-ssl requests to ssl version.
 SECURE_SSL_REDIRECT = True
