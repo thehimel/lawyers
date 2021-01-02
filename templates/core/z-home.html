@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Home" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1></h1>
+    <!-- Jumbotron -->
+    <div class="p-5 text-center">
+        <h3 class="mb-3">Lawyers Appointment Booking System</h3>
+        <h5 class="mb-3">with</h5>
+        <h4 class="mb-3">DJango and Allauth</h4>
+        <a class="btn btn-outline-primary btn-lg m-2" href="{% url 'users:customer_signup' %}" role="button">
+            <i class="fas fa-user"></i>&nbsp;Customer Signup
+        </a>
+        <a class="btn btn-outline-secondary btn-lg m-2" href="{% url 'users:lawyer_signup' %}" role="button">
+            <i class="fas fa-layer-group"></i>&nbsp;Lawyer Signup
+        </a>
+    </div>
+    <!-- Jumbotron -->
+</div>
+{% endblock content %}

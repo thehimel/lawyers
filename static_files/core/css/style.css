@@ -5,3 +5,19 @@ m-1	margin = 0.25rem
 .badge {
     margin-bottom: 0.25rem;
 }
+
+.carousel .carousel-item {
+    height: 400px;
+}
+
+.carousel-item img {
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    height: 400px;
+}
+
+.carousel-caption {
+    text-shadow: 2px 2px 2px black;
+}
