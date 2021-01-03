@@ -2,8 +2,10 @@
 from .base import *
 import dj_database_url
 
-# In production, make sure environment variable DEBUG=False
-DEBUG = config('DEBUG', cast=bool)
+# When env variable DEBUG is False, production.py is selected.
+# In production, make sure environment variable PRO_DEBUG=False
+# If you want to see the DEBUG info in the production server, set env PRO_DEBUG = True
+DEBUG = config('PRO_DEBUG', cast=bool)
 
 # Include your hosts here
 ALLOWED_HOSTS = ['thelawyers.herokuapp.com']
