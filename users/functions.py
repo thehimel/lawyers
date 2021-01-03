@@ -6,17 +6,23 @@ from django.core.exceptions import ValidationError
 from users.appvars import MAX_FILE_SIZE_IN_MB
 
 
-def resize_image(form_data, height_limit=300, square=True):
+def resize_image(form_data, field_name, height_limit=300, square=True):
     """
     Resize image to the given limit and crop from center if square is needed
     """
 
+    # We get source = form_data.pro_pic. Here pro_pic is the field_name.
+    # For different models, field_name will be different.
+    # To make the function dynamic, we are getting the attribute in this way.
+    # field_name is a string here.
+    source = getattr(form_data, field_name)
+
     # Opening the uploaded image
-    img = Image.open(form_data.pro_pic)
+    img = Image.open(source)
     output = BytesIO()
 
-    height = form_data.pro_pic.height
-    width = form_data.pro_pic.width
+    height = source.height
+    width = source.width
 
     # If square output is needed, crop the image.
     if square:
@@ -56,9 +62,13 @@ def resize_image(form_data, height_limit=300, square=True):
     output.seek(0)
 
     # change the imagefield value to be the newley modifed image value
-    form_data.pro_pic = InMemoryUploadedFile(
-        output, 'ImageField', f"{form_data.pro_pic.name.split('.')[0]}.jpg",
+    compressed_source = InMemoryUploadedFile(
+        output, 'ImageField', f"{source.name.split('.')[0]}.jpg",
         'image/jpeg', sys.getsizeof(output), None)
+
+    # We can not update the attribute with equal sign.
+    # We should set new value to the attribute with setattr().
+    setattr(form_data, field_name, compressed_source)
 
 
 def file_size(value):

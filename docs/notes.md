@@ -64,3 +64,16 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 [Resize Image before Uploading](https://stackoverflow.com/questions/52183975/how-to-compress-the-image-before-uploading-to-s3-in-django)
 [Compress Image before Uploading](https://dev.to/gajesh/compress-images-in-django-3la8)
 [Crop Image from Center to Make It Square](https://stackoverflow.com/questions/54545621/how-to-resize-and-crop-an-image-into-a-square-in-django)
+
+
+## [Get and Set Attribute of an Object from String](https://stackoverflow.com/questions/3253966/python-string-to-attribute)
+
+```python
+# If someobject has an attribute named foostring then
+def get_foo(someobject, foostring):
+    return getattr(someobject, foostring)
+
+# or if you want to set an attribute to the supplied object then:
+def set_foo(someobject, foostring, value):
+    return setattr(someobject,foostring, value)
+```

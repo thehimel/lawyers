@@ -8,7 +8,7 @@ from users.appvars import (
     FIRST_NAME_MAX_LENGTH, LAST_NAME_MAX_LENGTH,
     CATEGORY_MAX_LENGTH
 )
-from users.functions import resize_image, file_size, content_type_pdf
+from users.functions import resize_image, file_size
 
 
 user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
@@ -16,13 +16,13 @@ user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
 # https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.FileField.upload_to
 
 
-def user_directory_path(instance, filename):
+def user_dir(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_data/user_{0}/{1}'.format(instance.id, filename)
 
 
 # For lawyer profile, we get the user_id from instance.user.id
-def user_directory_path_lawyer_profile(instance, filename):
+def user_dir_lawyer_profile(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_data/user_{0}/{1}'.format(instance.user.id, filename)
 
@@ -49,13 +49,13 @@ class User(AbstractUser):
 
     # Using verbose_name in the form.
     pro_pic = models.ImageField(default=user_default_pro_pic,
-                                upload_to=user_directory_path,
+                                upload_to=user_dir,
                                 verbose_name="Profile Picture")
 
     # Overriding the save method
     def save(self, *args, **kwargs):
         # Resize image before upload.
-        resize_image(form_data=self)
+        resize_image(form_data=self, field_name='pro_pic')
         super().save(*args, **kwargs)
 
     @property
@@ -138,11 +138,24 @@ class LawyerProfile(models.Model):
 
     fee = models.IntegerField(verbose_name="Consultation Fee")
 
-    document = models.FileField(upload_to=user_directory_path_lawyer_profile,
-                                verbose_name="Official Document",
-                                validators=[file_size, content_type_pdf])
+    # As we are using Cloudary for media storage, we can't server pdf for free
+    # Thus, we are defining this field as ImageField()
+    # document = models.FileField(upload_to=user_dir_lawyer_profile,
+    #                             verbose_name="Official Document",
+    #                             validators=[file_size, content_type_pdf])
+
+    document = models.ImageField(upload_to=user_dir_lawyer_profile,
+                                 verbose_name="Official Document",
+                                 validators=[file_size])
 
     is_verified = models.BooleanField(default=False)
+
+    # Overriding the save method
+    def save(self, *args, **kwargs):
+        # Resize image before upload.
+        resize_image(form_data=self, field_name='document',
+                     height_limit=1200, square=False)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.user.username
