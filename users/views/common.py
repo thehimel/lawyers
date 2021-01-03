@@ -32,7 +32,7 @@ def profile(request):
 class AddressCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Address
     fields = ['flat_number', 'apartment_number',
-              'street', 'city', 'state', 'country']
+              'street', 'city', 'state', 'postal_code', 'country']
 
     template_name = 'users/address.html'
 
