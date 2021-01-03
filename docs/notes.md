@@ -59,3 +59,8 @@ class LawyerProfileUpdateForm(forms.ModelForm):
     </footer>
 </div>
 ```
+
+## Resize and Crop Image Before Uploading
+[Resize Image before Uploading](https://stackoverflow.com/questions/52183975/how-to-compress-the-image-before-uploading-to-s3-in-django)
+[Compress Image before Uploading](https://dev.to/gajesh/compress-images-in-django-3la8)
+[Crop Image from Center to Make It Square](https://stackoverflow.com/questions/54545621/how-to-resize-and-crop-an-image-into-a-square-in-django)
