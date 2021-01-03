@@ -131,6 +131,9 @@ Customized: Please Confirm The E-mail Address
 - If appointment booking confirmation email or another email is not being sent, allow Display Unlock Captcha once again.
 - Make sure you have kept the user_pro_pic inside the media/APP_NAME/defaults/img/user_pro_pic.jpg in the Cloudinary.
 
+### Collectstatic
+If you run 'python manage.py collectstatic', it will collect the static files of all associated apps and save it in a directory named 'static'.
+You can delete this directory anytime. Our static files are save in directory named 'static_files'.
 
 ## Production Status
 Is the project production ready?
