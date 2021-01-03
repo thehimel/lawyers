@@ -8,8 +8,7 @@ from users.appvars import (
     FIRST_NAME_MAX_LENGTH, LAST_NAME_MAX_LENGTH,
     CATEGORY_MAX_LENGTH
 )
-from django.core.exceptions import ValidationError
-from users.functions import resize_image
+from users.functions import resize_image, file_size, content_type_pdf
 
 
 user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
@@ -106,32 +105,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-def file_size(value):
-    mb = 1
-    limit = mb * 1024 * 1024
-    if value.size > limit:
-        raise ValidationError(
-            f'File too large. Size should not exceed {mb} MB. \
-                Current size is {value.size/(1024*1024):.2f} MB.')
-
-
-def content_type_pdf(value):
-    content_type = ['application/pdf']
-
-    # Few other file type options
-    # content_types = ['video/x-msvideo', 'application/pdf',
-    #                  'video/mp4', 'audio/mpeg', ]
-
-    # When we create the model, that time file field will be there.
-    # When we update the model and don't upload any file, no file
-    # file will exist. That time it will through error that content_type
-    # not available. Thus, we need to check if the object has the attribute.
-    # try-except doesn't work here.
-    if hasattr(value.file, 'content_type'):
-        if value.file.content_type not in content_type:
-            raise ValidationError('Only PDF files are accepted.')
 
 
 class LawyerProfile(models.Model):
