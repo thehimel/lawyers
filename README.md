@@ -129,6 +129,8 @@ Customized: Please Confirm The E-mail Address
 - If you want to see the DEBUG information while in production, set PRO_DEBUG = True in env.
 - The resize_image() function can cause Internal Server Error 500. Just comment that line, run the server once, create a user, and then you can uncomment it. It won't cause problem anymore. The exact reason of this bug is unknown.
 - If appointment booking confirmation email or another email is not being sent, allow Display Unlock Captcha once again.
+- Make sure you have kept the user_pro_pic inside the media/APP_NAME/defaults/img/user_pro_pic.jpg in the Cloudinary.
+
 
 ## Production Status
 Is the project production ready?
