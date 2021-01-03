@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+
+    # Using cloudinary as production media storage
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
+
     'django.contrib.sites',
 
     # For allauth
