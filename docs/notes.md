@@ -94,3 +94,14 @@ elif self.image.name.endswith(".png"):
     FILE_EXTENSION = 'png'
     DJANGO_TYPE = 'image/png'
 ```
+
+## Add Classes to Existing CLass with Crispy Forms
+
+```python
+# settings.py
+CRISPY_CLASS_CONVERTERS = {'numberinput': "numberinput form-control"}
+```
+
+```html
+<input type="number" name="fee_0" step="0.01" class="numberinput form-control" required="" id="id_fee_0">
+```
