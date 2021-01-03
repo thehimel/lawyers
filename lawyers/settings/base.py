@@ -162,7 +162,7 @@ EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
 
 # Default sender is mandatory
-DEFAULT_FROM_EMAIL = f"MultiUser <{EMAIL_HOST_USER}>"
+DEFAULT_FROM_EMAIL = f"Lawyers <{EMAIL_HOST_USER}>"
 
 
 # Static files (CSS, JavaScript, Images)
