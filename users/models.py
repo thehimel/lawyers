@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from multiselectfield import MultiSelectField
 from django_countries.fields import CountryField
+from django.core.validators import MaxValueValidator
 from users.appvars import (
     MANAGER, LAWYER, CUSTOMER, USER_TYPE_CHOICES,
     FIRST_NAME_MAX_LENGTH, LAST_NAME_MAX_LENGTH,
@@ -74,13 +75,33 @@ class Address(models.Model):
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
 
+    # postal_code max limit 10 digits
+    postal_code = models.IntegerField(
+        validators=[MaxValueValidator(9999999999)],
+        verbose_name="Postal Code")
+
     # blank_label is being used to show as the first option in the dropdown
     country = CountryField(blank_label='Select')
 
     def __str__(self):
-        return (self.flat_number + ', ' + self.street + ' ' +
-                self.apartment_number + ', ' + self.city + ', ' +
-                self.state + ', ' + str(self.country))
+        address_data = [self.flat_number, self.street,
+                        self.apartment_number, self.city, self.state,
+                        self.postal_code, self.country]
+
+        # Show address with a commad between the fields.
+
+        address = ''
+        for field in address_data:
+            # Add a field only if the field exists.
+            if field:
+
+                # Add comma if the address is not empty.
+                if address:
+                    address += ', '
+
+                address += str(field)
+
+        return address
 
     # Goes to this url after successful creation of an object of this class
     def get_absolute_url(self):
@@ -123,7 +144,10 @@ class LawyerProfile(models.Model):
     time_start = models.TimeField(verbose_name="Office Hours Start")
     time_end = models.TimeField(verbose_name="Office Hours End")
 
-    fee = models.IntegerField(verbose_name="Consultation Fee")
+    # fee max limit 6 digits
+    fee = models.IntegerField(
+        validators=[MaxValueValidator(999999)],
+        verbose_name="Consultation Fee")
 
     # As we are using Cloudary for media storage, we can't server pdf for free
     # Thus, we are defining this field as ImageField()
