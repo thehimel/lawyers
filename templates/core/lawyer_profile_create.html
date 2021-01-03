@@ -8,6 +8,21 @@
 <main>
     <div class="container">
 
+        {# django-money fields doesn't show errors, thus showing the error manually. #}
+        {% if form.errors %}
+        {% for error in form.fee.errors %}
+            <div class="text-center alert alert-dismissible fade show alert-{% if messages.tags %}{{ message.tags }}{% else %}info{% endif %}"
+                role="alert">
+
+                {{error}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            {% endfor %}
+        {% endif %}
+
         <section class="mt-4 mb-4">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
