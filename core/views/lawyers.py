@@ -68,42 +68,6 @@ class LawyerProfileCreateView(CreateView):
         return super().form_valid(form)
 
 
-# We are using function based view for update because
-# in class based update view, pk must be passed.
-# But we don't want to disclose the pk of an object.
-# With function based view, we take the instance from the request.
-def lawyer_profile_update(request):
-    try:
-        # If the user has a lawyer profile, do the following.
-        request.user.lawyerprofile is not None
-
-        if request.method == 'POST':
-            form = LawyerProfileUpdateForm(
-                request.POST, instance=request.user.lawyerprofile)
-            if form.is_valid():
-                if not valid_office_hours(form, request):
-                    # Rendering this template with the present form data
-                    return render(request,
-                                  'core/lawyer_profile.html',
-                                  {'form': form})
-
-                form.save()
-                messages.success(request, 'Your lawyer profile is updated!')
-                return redirect('core:lawyer_profile')
-
-        # If it's not POST, it's GET. Thus generate the form.
-        else:
-            form = LawyerProfileUpdateForm(instance=request.user.lawyerprofile)
-            context = {'form': form}
-            return render(request, 'core/lawyer_profile.html', context)
-
-    # If the user doesn't have any lawyer profile
-    except Exception:
-        messages.warning(
-            request, 'You must create a lawyer profile first to update it.')
-        return redirect('core:lawyer_profile_create')
-
-
 @method_decorator([login_required, lawyer_required,
                    user_has_address], name='dispatch')
 class LawyerProfileUpdateView(UserPassesTestMixin, UpdateView):
