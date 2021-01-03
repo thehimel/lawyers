@@ -8,7 +8,7 @@ def email_appointment_created(customer, lawyer, form_data):
 
     # This format must be followed to show Lawyers as the display name.
     # The email inside the <> will be replaced with the actual email.
-    sender_name = 'Lawyers <noreply@domain.com>'
+    sender_name = 'Lawyers <summershineocean@gmail.com>'
 
     to_recipients = []
 
