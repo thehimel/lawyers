@@ -65,7 +65,7 @@
                             {% else %}
                                 <span class="badge badge-danger">Not Paid</span>
                             {% endif %}
-                            <span class="badge badge-warning">&euro;{{ appointment.fee }}</span>
+                            <span class="badge badge-warning">{{ appointment.fee }}</span>
 
                             {% if appointment.is_cancelled_by_lawyer %}
                                 <span class="badge badge-danger">Cancelled by Lawyer</span>

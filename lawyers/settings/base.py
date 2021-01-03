@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     # Using cloudinary as production media storage
     'cloudinary_storage',
     'cloudinary',
+
+    'djmoney',
 ]
 
 MIDDLEWARE = [
@@ -178,3 +180,13 @@ AUTH_USER_MODEL = "users.User"
 
 # Boostrap version in crispy_forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# django-money fields doesn't have bootstrap classes automatically.
+# Thus assigning them manually.
+CRISPY_CLASS_CONVERTERS = {
+    'numberinput': 'numberinput form-control',
+    'select': 'select form-control'
+}
+
+# django-money allowed currencies
+CURRENCIES = ('USD', 'EUR', 'INR', 'BDT')

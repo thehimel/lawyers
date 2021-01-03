@@ -95,13 +95,52 @@ elif self.image.name.endswith(".png"):
     DJANGO_TYPE = 'image/png'
 ```
 
+
+## [django-money](https://pypi.org/project/django-money/)
+
+- Allowed Currencies
+
+```python
+# settings.py
+CURRENCIES = ('USD', 'EUR', 'INR', 'BDT')
+```
+
+
 ## Add Classes to Existing CLass with Crispy Forms
 
 ```python
 # settings.py
-CRISPY_CLASS_CONVERTERS = {'numberinput': "numberinput form-control"}
+CRISPY_CLASS_CONVERTERS = {
+    'numberinput': 'numberinput form-control',
+    'select': 'select form-control'
+}
 ```
 
 ```html
 <input type="number" name="fee_0" step="0.01" class="numberinput form-control" required="" id="id_fee_0">
+<select name="fee_1" class="select" required id="id_fee_1">
+    <option value="EUR" selected>Euro</option>
+    <option value="INR">Indian Rupee</option>
+    <option value="BDT">Taka</option>
+    <option value="USD">US Dollar</option>
+</select>
+```
+
+## Showing Errors for django-money Fields in the Template
+
+```html
+{# django-money fields doesn't show errors, thus showing the error manually. #}
+{% if form.errors %}
+    {% for error in form.fee.errors %}
+    <div class="text-center alert alert-dismissible fade show alert-{% if messages.tags %}{{ message.tags }}{% else %}info{% endif %}"
+        role="alert">
+
+        {{error}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+    {% endfor %}
+{% endif %}
 ```

@@ -1,8 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.urls import reverse
 from multiselectfield import MultiSelectField
 from django_countries.fields import CountryField
+from djmoney.models.fields import MoneyField
+from djmoney.models.validators import MaxMoneyValidator, MinMoneyValidator
+from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 from django.core.validators import MaxValueValidator
 from users.appvars import (
     MANAGER, LAWYER, CUSTOMER, USER_TYPE_CHOICES,
@@ -145,9 +147,13 @@ class LawyerProfile(models.Model):
     time_end = models.TimeField(verbose_name="Office Hours End")
 
     # fee max limit 6 digits
-    fee = models.IntegerField(
-        validators=[MaxValueValidator(999999)],
-        verbose_name="Consultation Fee")
+    fee = MoneyField(max_digits=10, decimal_places=2, default_currency='EUR',
+                     validators=[
+                         MinMoneyValidator(0),
+                         MaxMoneyValidator(400000),
+                         MaxMoneyValidator({'EUR': 4000, 'USD': 4000}),
+                     ],
+                     verbose_name="Consultation Fee")
 
     # As we are using Cloudary for media storage, we can't server pdf for free
     # Thus, we are defining this field as ImageField()
@@ -172,4 +178,4 @@ class LawyerProfile(models.Model):
         return self.user.username
 
     def get_absolute_url(self):  # new
-        return reverse('core:lawyer_profile')
+        return reverse('core:lawyer_profile', kwargs={'pk': self.pk})

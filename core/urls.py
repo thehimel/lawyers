@@ -4,7 +4,7 @@ from core.views.common import (HomeView, dashboard,
                                AppointmentCancelView)
 from core.views.lawyers import (LawyerDashboardView, LawyerProfileCreateView,
                                 LawyerProfileListView, LawyerProfileDetailView,
-                                lawyer_profile_update, AppointmentAcceptView)
+                                LawyerProfileUpdateView, AppointmentAcceptView)
 from core.views.customers import CustomerDashboardView
 from core.views.managers import (ManagerDashboardView, VerifyLawyerProfileView,
                                  UnverifyLawyerProfileView)
@@ -36,7 +36,8 @@ urlpatterns = [
          LawyerProfileCreateView.as_view(), name='lawyer_profile_create'),
 
     # url: '/lawyers/profile', name = core:lawyer_profile
-    path('lawyers/profile/', lawyer_profile_update, name='lawyer_profile'),
+    path('lawyers/profile/<int:pk>/', LawyerProfileUpdateView.as_view(),
+         name='lawyer_profile'),
 
     # url: '/lawyers/', name = core:lawyers
     path('lawyers/',

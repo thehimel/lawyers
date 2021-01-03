@@ -44,7 +44,7 @@
                                 <i class="fas fa-user-clock"></i>
                                 {{ user.lawyerprofile.experience }} Years
                             </span>
-                            <span class="badge badge-warning">&euro;{{ user.lawyerprofile.fee }}</span>
+                            <span class="badge badge-warning">{{ user.lawyerprofile.fee }}</span>
                             <span class="badge badge-secondary">
                                 <i class="far fa-clock"></i>
                                 {{ user.lawyerprofile.time_start }}&nbsp;&minus;&nbsp;{{ user.lawyerprofile.time_end }}
@@ -69,6 +69,22 @@
 
             <!-- mt-md-2 will add a top margin when the screen size >= medium -->
             <div class="col-md-8 mt-md-2">
+
+                {# django-money fields doesn't show errors, thus showing the error manually. #}
+                {% if form.errors %}
+                    {% for error in form.fee.errors %}
+                    <div class="text-center alert alert-dismissible fade show alert-{% if messages.tags %}{{ message.tags }}{% else %}info{% endif %}"
+                        role="alert">
+
+                        {{error}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
                 <section class="mb-4">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}

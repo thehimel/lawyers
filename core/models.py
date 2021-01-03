@@ -1,4 +1,5 @@
 from django.db import models
+from djmoney.models.fields import MoneyField
 from users.models import User
 from django.urls import reverse
 from users.appvars import (
@@ -24,7 +25,9 @@ class Appointment(models.Model):
     time = models.TimeField()
     message = models.TextField(max_length=500)
 
-    fee = models.IntegerField()
+    # fee max limit 6 digits
+    fee = MoneyField(max_digits=10, decimal_places=2,
+                     verbose_name="Consultation Fee")
 
     is_paid = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)

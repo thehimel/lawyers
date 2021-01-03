@@ -12,6 +12,9 @@ A Django project that illustrates the implementation of apppointment booking for
 - mdb==4.19.1
 - bootstrap==4
 - django-bootstrap-datepicker-plus==3.0.5
+- cloudinary==1.24.0
+- django-cloudinary-storage==0.3.0
+- django-money==1.2.2
 
 ## Other Important Packages
 - psycopg2 - for managing postgres db
@@ -22,6 +25,8 @@ A Django project that illustrates the implementation of apppointment booking for
 - django-multiselectfield - to allow users select multiple choices
 - django-countries - to show countries as dropdown list
 - django-bootstrap-datepicker-plus - used for datepicker and timepicker
+- cloudinary and django-cloudinary-storage - to store media files
+- django-money - for currency management
 
 ## Getting Started
 Create and activate virtual env with Miniconda and install dependencies.
