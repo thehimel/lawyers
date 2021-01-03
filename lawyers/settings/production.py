@@ -31,3 +31,6 @@ DATABASES['default'] = postgres_db
 
 # STRIPE_PUBLIC_KEY = config('STRIPE_LIVE_PUBLIC_KEY')
 # STRIPE_SECRET_KEY = config('STRIPE_LIVE_SECRET_KEY')
+
+# For images
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
