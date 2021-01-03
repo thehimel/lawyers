@@ -71,7 +71,7 @@
                 src="https://images.pexels.com/photos/5137470/pexels-photo-5137470.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="promotion_one">
             <h2>A New Beginning</h2>
             <p>With our continuous support you are going to get a new beginning in life.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Sign Up &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="{% url 'users:customer_signup' %}" role="button">Sign Up &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
 
         <div class="col-lg-4">
@@ -79,7 +79,7 @@
                 src="https://images.pexels.com/photos/5683342/pexels-photo-5683342.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="promotion_two">
             <h2>A Very Easy Solution</h2>
             <p>Our lawyers are trained to find the best possible solution for your issues.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Lawyers &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="{% url 'core:lawyers' %}" role="button">Lawyers &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
 
         <div class="col-lg-4">
@@ -87,7 +87,7 @@
                 src="https://images.pexels.com/photos/2694040/pexels-photo-2694040.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="promotion_three">
             <h2>Be Happy Like Before</h2>
             <p>We understand your situation and our aim is to bring your happiness back.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Login &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="{% url 'account_login' %}" role="button">Login &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
 
     </div><!-- /.row -->
@@ -104,8 +104,8 @@
                 Lawyers at our platform understand your need and accepts your appointment without delay to solve your issues as soon as possible.
             </p>
             <p class="custom-mobile-text-center">
-                <a class="btn btn-lg btn-secondary" href="#" role="button">Sign up Today</a>
-                <a class="btn btn-lg btn-info" href="#" role="button">Find Lawyers</a>
+                <a class="btn btn-lg btn-secondary" href="{% url 'users:customer_signup' %}" role="button">Sign up Today</a>
+                <a class="btn btn-lg btn-info" href="{% url 'core:lawyers' %}" role="button">Find Lawyers</a>
             </p>
         </div>
         <div class="col-md-5 my-auto">
@@ -122,8 +122,8 @@
                 We believe in justice and our continuous effort is always there with you to provide you with the best possible services that will make you smile again.
             </p>
             <p class="custom-mobile-text-center">
-                <a class="btn btn-lg btn-info" href="#" role="button">Login Now</a>
-                <a class="btn btn-lg btn-secondary" href="#" role="button">Know More</a>
+                <a class="btn btn-lg btn-info" href="{% url 'account_login' %}" role="button">Login Now</a>
+                <a class="btn btn-lg btn-secondary" href="{% url 'core:lawyers' %}" role="button">Know More</a>
             </p>
         </div>
         <div class="col-md-5 order-md-1 my-auto">
@@ -140,8 +140,8 @@
                 We are motivated to do everything we can to bring justice in your life and we smile when you smile. Let's fight together.
             </p>
             <p class="custom-mobile-text-center">
-                <a class="btn btn-lg btn-secondary" href="#" role="button">Sign up Now</a>
-                <a class="btn btn-lg btn-info" href="#" role="button">Meet Lawyers</a>
+                <a class="btn btn-lg btn-secondary" href="{% url 'users:customer_signup' %}" role="button">Sign up Now</a>
+                <a class="btn btn-lg btn-info" href="{% url 'core:lawyers' %}" role="button">Meet Lawyers</a>
             </p>
         </div>
         <div class="col-md-5 my-auto">
