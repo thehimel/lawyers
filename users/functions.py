@@ -7,7 +7,7 @@ from users.appvars import MAX_FILE_SIZE_IN_MB, APP_NAME
 
 
 # Adding APP_NAME in the beginning, to distinguish projects in cloudinary
-user_default_pro_pic = APP_NAME + '/defaults/img/user_pro_pic.jpg'
+user_default_pro_pic = APP_NAME + '/defaults/img/user_pro_pic_ogair1.jpg'
 
 
 # file will be uploaded to MEDIA_ROOT/APP_NAME/user_<username>/<filename>

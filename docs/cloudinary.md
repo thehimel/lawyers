@@ -11,6 +11,7 @@ N.B.: With the free package, only image files can be server. Raw files like .pdf
 - [django-cloudinary-storage](https://pypi.org/project/django-cloudinary-storage/)
 
 ### Commands
+
 ```bash
 pip install cloudinary
 pip install django-cloudinary-storage
@@ -51,6 +52,7 @@ CLOUDINARY_STORAGE = {
 ### Storage for Media Files
 
 - There are 3 media storages. You should include DEFAULT_FILE_STORAGE in the settings.py. For us, we'll include it in the settings/production.py
+
 ```python
 # For images
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -63,6 +65,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 ```
 
 - If we want to use both images and raw files storages, we can define the most used storage as DEFAULT_FILE_STORAGE, and for other types we can define the storage in the model.
+
 ```python
 # settings.py
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -77,3 +80,13 @@ class UserProfile(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)  # no need to set storage, field will use the default one
     document = models.ImageField(upload_to='raw/', blank=True, storage=RawMediaCloudinaryStorage())
 ```
+
+## Cloudinary Account Settings
+- In the Media Library create a folder 'media'. This folder will store the images.
+- Create a folder 'media/lawyers'. Here lawyers is our APP_NAME and we are using this to distinguish among various projects.
+- Now create the file for default profile picture.
+'/media/lawyers/defaults/img/user_pro_pic.jpg'.
+- After the upload, file name may change. If it changes, update the change in the default field of the model and the associated file in the local media storage.
+- For this project, you need to make changes in these 2 places:
+    - /media/lawyers/media/lawyers/defaults/img/user_pro_pic.jpg
+    - /users/functions.py variable: user_default_pro_pic
