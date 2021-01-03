@@ -61,9 +61,9 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 ```
 
 ## Resize and Crop Image Before Uploading
-[Resize Image before Uploading](https://stackoverflow.com/questions/52183975/how-to-compress-the-image-before-uploading-to-s3-in-django)
-[Compress Image before Uploading](https://dev.to/gajesh/compress-images-in-django-3la8)
-[Crop Image from Center to Make It Square](https://stackoverflow.com/questions/54545621/how-to-resize-and-crop-an-image-into-a-square-in-django)
+- [Resize Image before Uploading](https://stackoverflow.com/questions/52183975/how-to-compress-the-image-before-uploading-to-s3-in-django)
+- [Compress Image before Uploading](https://dev.to/gajesh/compress-images-in-django-3la8)
+- [Crop Image from Center to Make It Square](https://stackoverflow.com/questions/54545621/how-to-resize-and-crop-an-image-into-a-square-in-django)
 
 
 ## [Get and Set Attribute of an Object from String](https://stackoverflow.com/questions/3253966/python-string-to-attribute)
@@ -76,4 +76,21 @@ def get_foo(someobject, foostring):
 # or if you want to set an attribute to the supplied object then:
 def set_foo(someobject, foostring, value):
     return setattr(someobject,foostring, value)
+```
+
+## Django 'File' object has no attribute 'content_type'
+- [Discussion](https://stackoverflow.com/questions/22397637/django-file-object-has-no-attribute-content-type)
+
+```python
+#DJANGO_TYPE = self.image.file.content_type
+
+if self.image.name.endswith(".jpg"):
+    PIL_TYPE = 'jpeg'
+    FILE_EXTENSION = 'jpg'
+    DJANGO_TYPE = 'image/jpeg'
+
+elif self.image.name.endswith(".png"):
+    PIL_TYPE = 'png'
+    FILE_EXTENSION = 'png'
+    DJANGO_TYPE = 'image/png'
 ```

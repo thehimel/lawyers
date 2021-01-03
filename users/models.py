@@ -8,23 +8,10 @@ from users.appvars import (
     FIRST_NAME_MAX_LENGTH, LAST_NAME_MAX_LENGTH,
     CATEGORY_MAX_LENGTH
 )
-from users.functions import resize_image, file_size
-
-
-user_default_pro_pic = 'img/defaults/user_pro_pic.jpg'
-
-# https://docs.djangoproject.com/en/3.1/ref/models/fields/#django.db.models.FileField.upload_to
-
-
-def user_dir(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_data/user_{0}/{1}'.format(instance.id, filename)
-
-
-# For lawyer profile, we get the user_id from instance.user.id
-def user_dir_lawyer_profile(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_data/user_{0}/{1}'.format(instance.user.id, filename)
+from users.functions import (
+    user_default_pro_pic, user_dir, user_dir_lawyer,
+    resize_image, file_size
+)
 
 
 # Fields provided by default
@@ -55,7 +42,6 @@ class User(AbstractUser):
 
     # Overriding the save method
     def save(self, *args, **kwargs):
-        # Resize image before upload.
         resize_image(form_data=self, field_name='pro_pic')
         super().save(*args, **kwargs)
 
@@ -141,11 +127,11 @@ class LawyerProfile(models.Model):
 
     # As we are using Cloudary for media storage, we can't server pdf for free
     # Thus, we are defining this field as ImageField()
-    # document = models.FileField(upload_to=user_dir_lawyer_profile,
+    # document = models.FileField(upload_to=user_dir_lawyer,
     #                             verbose_name="Official Document",
     #                             validators=[file_size, content_type_pdf])
 
-    document = models.ImageField(upload_to=user_dir_lawyer_profile,
+    document = models.ImageField(upload_to=user_dir_lawyer,
                                  verbose_name="Official Document",
                                  validators=[file_size])
 

@@ -152,11 +152,11 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 EMAIL_USE_TLS = True  # This must be True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = config('EMAIL_USER')
+EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
 
 # Default sender is mandatory
-DEFAULT_FROM_EMAIL = "MultiUser <info@domain.com>"
+DEFAULT_FROM_EMAIL = f"MultiUser <{EMAIL_HOST_USER}>"
 
 
 # Static files (CSS, JavaScript, Images)

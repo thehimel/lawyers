@@ -3,7 +3,23 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.exceptions import ValidationError
-from users.appvars import MAX_FILE_SIZE_IN_MB
+from users.appvars import MAX_FILE_SIZE_IN_MB, APP_NAME
+
+
+# Adding APP_NAME in the beginning, to distinguish projects in cloudinary
+user_default_pro_pic = APP_NAME + '/defaults/img/user_pro_pic.jpg'
+
+
+# file will be uploaded to MEDIA_ROOT/APP_NAME/user_<username>/<filename>
+# When we use id here, during the creation of a user model, id becomes None.
+def user_dir(instance, filename):
+    return APP_NAME + f'/user_data/user_{instance.username}/{filename}'
+
+
+# For lawyer profile, we get the user_id from instance.user.id
+# file will be uploaded to MEDIA_ROOT/APP_NAME/user_<username>/<filename>
+def user_dir_lawyer(instance, filename):
+    return APP_NAME + f'/user_data/user_{instance.user.username}/{filename}'
 
 
 def resize_image(form_data, field_name, height_limit=300, square=True):
@@ -57,8 +73,15 @@ def resize_image(form_data, field_name, height_limit=300, square=True):
     if width > width_limit and height > height_limit:
         img = img.resize((width_limit, height_limit))
 
+    # For the default file selection at the beginning,
+    # it doesn't have content type. Easiest solution is
+    # to check for the extension at the end.
+    # Make sure the user_default_pro_pic is a JPG file.
     # content_type = 'image/jpeg', content_type = 'image/png'.
-    content_type = source.file.content_type
+    if source.name.endswith(".jpg") or source.name.endswith(".jpeg"):
+        content_type = 'image/jpeg'
+    else:
+        content_type = source.file.content_type
 
     # Fetching the part after the last slash.
     file_format = content_type.split("/")[-1]
