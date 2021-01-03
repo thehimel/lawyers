@@ -23,7 +23,7 @@ pip install django-cloudinary-storage
 
 ### settings.py Integration
 - For this project, it's settings/base.py
-- As we are serving media files, cloudinary_storage must be before django.contrib.staticfiles
+- If cloudinary is used for both static and media files, cloudinary_storage must be before django.contrib.staticfiles this way.
 
 ```python
 INSTALLED_APPS = [
@@ -35,17 +35,29 @@ INSTALLED_APPS = [
 ]
 ```
 
+- As we are serving only media files, cloudinary_storage must be at the end of INSTALLED_APPS, otherwise it will not get our static files.
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'cloudinary_storage',
+    'cloudinary',
+    # ...
+]
+
 ### Cloudinary Credentials
 - Generally this information is added in the settings.py
-- For us we can add it in the settings/development.py
-- But we will use cloudinary only for production, thus we don't need to define CLOUDINARY_STORAGE anywhere.
-- For production we will include CLOUDINARY_URL in the Heroku config_vars after installing Cloudinary addon.
+- In env we save CLOUDINARY_INFO = 'CLOUD_NAME:API_KEY:API_SECRET'
+- Then in settings/production.py we add the following code.
+- Thus way we save only one variable in the env.
 
 ```bash
+CLOUDINARY_INFO = config('CLOUDINARY_INFO').split(':')
+
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_cloud_name',
-    'API_KEY': 'your_api_key',
-    'API_SECRET': 'your_api_secret'
+    'CLOUD_NAME': CLOUDINARY_INFO[0],
+    'API_KEY': CLOUDINARY_INFO[1],
+    'API_SECRET': CLOUDINARY_INFO[2]
 }
 ```
 

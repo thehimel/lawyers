@@ -33,10 +33,13 @@ DATABASES['default'] = postgres_db
 # STRIPE_SECRET_KEY = config('STRIPE_LIVE_SECRET_KEY')
 
 # Cloudinary Credentials
+# Save CLOUDINARY_INFO in the env as 'CLOUD_NAME:API_KEY:API_SECRET'
+CLOUDINARY_INFO = config('CLOUDINARY_INFO').split(':')
+
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'thecloudstorage',
-    'API_KEY': '176851931579969',
-    'API_SECRET': 'SBFxVLk8dd2XaEp6IgH07Lu3NOM'
+    'CLOUD_NAME': CLOUDINARY_INFO[0],
+    'API_KEY': CLOUDINARY_INFO[1],
+    'API_SECRET': CLOUDINARY_INFO[2]
 }
 
 # For images

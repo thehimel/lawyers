@@ -52,12 +52,3 @@ DATABASES['default'] = {
 
 # STRIPE_PUBLIC_KEY = config('STRIPE_TEST_PUBLIC_KEY')
 # STRIPE_SECRET_KEY = config('STRIPE_TEST_SECRET_KEY')
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'thecloudstorage',
-    'API_KEY': '176851931579969',
-    'API_SECRET': 'SBFxVLk8dd2XaEp6IgH07Lu3NOM'
-}
-
-# For images
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
