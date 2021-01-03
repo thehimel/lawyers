@@ -74,14 +74,15 @@ def resize_image(form_data, field_name, height_limit=300, square=True):
         img = img.resize((width_limit, height_limit))
 
     # For the default file selection at the beginning,
-    # it doesn't have content type. Easiest solution is
-    # to check for the extension at the end.
-    # Make sure the user_default_pro_pic is a JPG file.
-    # content_type = 'image/jpeg', content_type = 'image/png'.
-    if source.name.endswith(".jpg") or source.name.endswith(".jpeg"):
-        content_type = 'image/jpeg'
-    else:
+    # it doesn't have content type.
+    # For default pro_pic, as it is just a location and not a file,
+    # no content_type will be there, and the function will return
+    # without saving a new file. It also solves the problem of
+    # repeated default image with every new user creation.
+    if hasattr(source.file, 'content_type'):
         content_type = source.file.content_type
+    else:
+        return
 
     # Fetching the part after the last slash.
     file_format = content_type.split("/")[-1]

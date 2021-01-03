@@ -32,5 +32,12 @@ DATABASES['default'] = postgres_db
 # STRIPE_PUBLIC_KEY = config('STRIPE_LIVE_PUBLIC_KEY')
 # STRIPE_SECRET_KEY = config('STRIPE_LIVE_SECRET_KEY')
 
+# Cloudinary Credentials
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'thecloudstorage',
+    'API_KEY': '176851931579969',
+    'API_SECRET': 'SBFxVLk8dd2XaEp6IgH07Lu3NOM'
+}
+
 # For images
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
