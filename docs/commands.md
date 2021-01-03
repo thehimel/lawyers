@@ -1,5 +1,6 @@
 
 conda create --name law python=3.7
+pip install -r requirements.txt
 conda env remove --namw law
 conda create --name law2 --clone law
 
