@@ -124,6 +124,12 @@ Customized: Please Confirm The E-mail Address
 - [Display Unlock Captcha](https://accounts.google.com/DisplayUnlockCaptcha)
 - Display Unlock Captcha is very very important, else it will block login from heroku app.
 
+### Internal Server Error 500
+- Make sure you have added the domain in the ALLOWED_HOSTS of settings/production.py
+- If you want to see the DEBUG information while in production, set PRO_DEBUG = True in env.
+- The resize_image() function can cause Internal Server Error 500. Just comment that line, run the server once, create a user, and then you can uncomment it. It won't cause problem anymore. The exact reason of this bug is unknown.
+- If appointment booking confirmation email or another email is not being sent, allow Display Unlock Captcha once again.
+
 ## Production Status
 Is the project production ready?
 Yes
