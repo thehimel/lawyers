@@ -50,7 +50,8 @@ class User(AbstractUser):
     # Using verbose_name in the form.
     pro_pic = models.ImageField(default=user_default_pro_pic,
                                 upload_to=user_dir,
-                                verbose_name="Profile Picture")
+                                verbose_name="Profile Picture",
+                                validators=[file_size])
 
     # Overriding the save method
     def save(self, *args, **kwargs):

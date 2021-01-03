@@ -17,4 +17,4 @@ CUSTOMER = 'C'
 USER_TYPE_CHOICES = [(MANAGER, 'Manager'),
                      (LAWYER, 'Lawyer'), (CUSTOMER, 'Customer')]
 
-MAX_FILE_SIZE_IN_MB = 10
+MAX_FILE_SIZE_IN_MB = 5
