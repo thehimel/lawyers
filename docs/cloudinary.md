@@ -102,3 +102,9 @@ class UserProfile(models.Model):
 - For this project, you need to make changes in these 2 places:
     - /media/lawyers/media/lawyers/defaults/img/user_pro_pic.jpg
     - /users/functions.py variable: user_default_pro_pic
+- Solution to this issue:
+    - Go to Cloudinary Upload Settings
+    - Scroll down to Upload presets
+    - Select ml_default or another other present being used for the image uploads
+    - Uncheck Unique filename
+    - Now it won't add any character after the name of the uploaded image.
