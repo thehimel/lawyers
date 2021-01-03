@@ -57,14 +57,21 @@ def resize_image(form_data, field_name, height_limit=300, square=True):
     if width > width_limit and height > height_limit:
         img = img.resize((width_limit, height_limit))
 
+    # content_type = 'image/jpeg', content_type = 'image/png'.
+    content_type = source.file.content_type
+
+    # Fetching the part after the last slash.
+    file_format = content_type.split("/")[-1]
+
     # after modifications, save it to the output
-    img.save(output, format='JPEG', quality=90)
+    # Here format can be, format='JPEG', format='PNG'
+    img.save(output, format=file_format, quality=90)
     output.seek(0)
 
     # change the imagefield value to be the newley modifed image value
     compressed_source = InMemoryUploadedFile(
-        output, 'ImageField', f"{source.name.split('.')[0]}.jpg",
-        'image/jpeg', sys.getsizeof(output), None)
+        output, 'ImageField', source.name,
+        content_type, sys.getsizeof(output), None)
 
     # We can not update the attribute with equal sign.
     # We should set new value to the attribute with setattr().
@@ -79,8 +86,7 @@ def file_size(value):
                 Current size is {value.size/(1024*1024):.2f} MB.')
 
 
-def content_type_pdf(value):
-    content_type = ['application/pdf']
+def content_type_test(value, content_types, msg):
 
     # Few other file type options
     # content_types = ['video/x-msvideo', 'application/pdf',
@@ -92,5 +98,17 @@ def content_type_pdf(value):
     # not available. Thus, we need to check if the object has the attribute.
     # try-except doesn't work here.
     if hasattr(value.file, 'content_type'):
-        if value.file.content_type not in content_type:
-            raise ValidationError('Only PDF files are accepted.')
+        if value.file.content_type not in content_types:
+            raise ValidationError(msg)
+
+
+def content_type_pdf(value):
+    content_types = ['application/pdf']
+    msg = 'Only PDF file is accepted.'
+    content_type_test(value, content_types, msg)
+
+
+def content_type_jpeg(value):
+    content_types = ['image/jpeg']
+    msg = 'Only JPG or JPEG file is accepted.'
+    content_type_test(value, content_types, msg)
