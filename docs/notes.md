@@ -43,6 +43,58 @@ class LawyerProfileUpdateForm(forms.ModelForm):
 
 ## [Redirect to Previous Page](https://stackoverflow.com/questions/35796195/how-to-redirect-to-previous-page-in-django-after-post-request/35796330)
 
+```python
+# Redirect to previous page
+return redirect(request.META.get('HTTP_REFERER', '/'))
+```
+
+## [Redirect to 'next'](https://stackoverflow.com/questions/38431166/redirect-to-next-after-login-in-django)
+```python
+# Simple
+return redirect(self.request.GET.get('next'))
+
+# For UpdateVIew()
+
+def form_valid(self, form):
+
+        # Your additional code to perform anything
+
+        # If the 'next' exists and it is save, we update the success_url.
+        # If the 'next'is doesn't exists or it is not a save url,
+        # by default the success_url is the source of the request.
+        next_url = self.request.GET.get("next", None)
+        if next_url and is_safe_url(
+                url=next_url,
+                allowed_hosts={self.request.get_host()},
+                require_https=self.request.is_secure()):
+
+            self.success_url = next_url
+
+        return super().form_valid(form)
+
+# For General
+from django.shortcuts import redirect
+from django.utils.http import is_safe_url
+from django.conf import settings
+
+def redirect_after_login(request):
+    nxt = request.GET.get("next", None)
+    if nxt is None:
+        return redirect(settings.LOGIN_REDIRECT_URL)
+    elif not is_safe_url(
+            url=nxt,
+            allowed_hosts={request.get_host()},
+            require_https=request.is_secure()):
+        return redirect(settings.LOGIN_REDIRECT_URL)
+    else:
+        return redirect(nxt)
+
+def my_login_view(request):
+    # TODO: Check if its ok to login.
+    # Then either safely redirect og go to default startpage.
+    return redirect_after_login(request)
+```
+
 ## [Difference Between 2 Dates in Python](https://stackoverflow.com/questions/8419564/difference-between-two-dates-in-python)
 
 ## [Django Template View for Empty List](https://stackoverflow.com/questions/902034/how-can-i-check-the-size-of-a-collection-within-a-django-template)

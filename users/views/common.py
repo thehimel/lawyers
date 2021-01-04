@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.views.generic import CreateView
 from users.forms.common import UserUpdateForm, AddressUpdateForm
 from users.models import Address
+from django.utils.http import is_safe_url
 
 
 # Common Profile View
@@ -48,6 +49,22 @@ class AddressCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         # Selecting the present user as the user of this address
         form.instance.user = self.request.user
         messages.success(self.request, 'Your address is created!')
+
+        # To create a lawyer profile, or to book an appointment,
+        # it is mandatory to have an address. While performing these
+        # tasks, if the user doesn't have an address. User will be redirected
+        # to AddressCreateView() with a 'next' parameter.
+        # If the 'next' exists and it is save, we update the success_url.
+        # If the 'next'is doesn't exists or it is not a save url,
+        # by default the success_url is the source of the request.
+        next_url = self.request.GET.get("next", None)
+        if next_url and is_safe_url(
+                url=next_url,
+                allowed_hosts={self.request.get_host()},
+                require_https=self.request.is_secure()):
+
+            self.success_url = next_url
+
         return super().form_valid(form)
 
 

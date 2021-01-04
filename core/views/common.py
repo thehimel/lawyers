@@ -7,6 +7,7 @@ from users.mixins import NotLawyerMixin
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from users.appvars import MANAGER, LAWYER, CUSTOMER
+from users.decorators import user_has_address
 from core.appvars import APPOINTMENT_DATE_MAX_LIMIT_IN_DAYS
 from users.models import User
 from core.models import Appointment
@@ -73,6 +74,7 @@ def valid_date_time(form, request, lawyer):
 
 # One lawyer can't book appointment for another lawyer
 # Customers and managers can book appointment.
+@method_decorator([user_has_address], name='dispatch')
 class AppointmentCreateView(LoginRequiredMixin, NotLawyerMixin,
                             UserPassesTestMixin, CreateView):
     model = Appointment
