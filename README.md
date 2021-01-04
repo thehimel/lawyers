@@ -140,6 +140,10 @@ Customized: Please Confirm The E-mail Address
 If you run 'python manage.py collectstatic', it will collect the static files of all associated apps and save it in a directory named 'static'.
 You can delete this directory anytime. Our static files are save in directory named 'static_files'.
 
+### Solution to Cloud Migration Not Taking Place from Local Machine
+- Reason: Project is not Taking Environment Variable from System.
+- Solution: Terminal needs to be restarted after updating the environment variables in Windows. If you are using vscode, open a new terminal or restart the vscode to take the updated environment variables from the system.
+
 ## Production Status
 Is the project production ready?
 Yes
