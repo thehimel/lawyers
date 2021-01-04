@@ -111,6 +111,7 @@ heroku run python manage.py migrate --app mntest01
 ## Add These Config Vars
 DATABASE_URL (Automatically added after initializing Postgres addon)
 DEBUG = False
+PRO_DEBUG = False (Used to see DEBUG info in production mode)
 EMAIL_PASS
 EMAIL_USER
 SECRET_KEY
