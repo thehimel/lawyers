@@ -124,6 +124,11 @@ Customized: Please Confirm The E-mail Address
 - [Display Unlock Captcha](https://accounts.google.com/DisplayUnlockCaptcha)
 - Display Unlock Captcha is very very important, else it will block login from heroku app.
 
+### Best Solution to Heroku Internal Server Error 500 on Sending Email using Gmail SMTP
+- Activate 2 Factor Authentication in your Google account.
+- Create an app password for mail. You'll get a 15 digit code. Add it in the place of password in the env.
+- Option for creating app password is available after the activation of 2 Factor Authentication.
+
 ### Internal Server Error 500
 - Make sure you have added the domain in the ALLOWED_HOSTS of settings/production.py
 - If you want to see the DEBUG information while in production, set PRO_DEBUG = True in env.
