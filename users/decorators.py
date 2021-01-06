@@ -86,22 +86,40 @@ def user_has_address(function=None,
     return actual_decorator
 
 
-# If lawyer profile exists, return False
-def test_no_lawyer_profile(user):
+# If lawyer profile exists, return True
+def test_lawyer_profile(user):
     try:
         user.lawyerprofile is not None
-        return False
-    except Exception:
         return True
+    except Exception:
+        return False
+
+
+# If the user fails the test redirect to the url mentioned in login_url
+def user_has_lawyer_profile(function=None,
+                            redirect_field_name=REDIRECT_FIELD_NAME,
+                            login_url='core:lawyer_profile_create'):
+
+    actual_decorator = user_passes_test(
+        lambda u: test_lawyer_profile(u),
+        redirect_field_name=redirect_field_name,
+        login_url=login_url)
+
+    if function:
+        return actual_decorator(function)
+
+    return actual_decorator
 
 
 # If the user fails the test redirect to the url mentioned in login_url
 def user_has_no_lawyer_profile(function=None,
                                redirect_field_name=REDIRECT_FIELD_NAME,
-                               login_url='users:profile'):
+                               login_url='core:lawyer_profile'):
 
+    # test_lawyer_profile() returns True if the user has lawyer profile
+    # Thus we're using 'not test_lawyer_profile(u)'
     actual_decorator = user_passes_test(
-        lambda u: test_no_lawyer_profile(u),
+        lambda u: not test_lawyer_profile(u),
         redirect_field_name=redirect_field_name,
         login_url=login_url)
 

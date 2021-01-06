@@ -196,3 +196,12 @@ CRISPY_CLASS_CONVERTERS = {
     {% endfor %}
 {% endif %}
 ```
+
+## Pass Argument to a View after Object Creation
+
+```python
+class LawyerProfile(models.Model):
+    # Your Code
+    def get_absolute_url(self):  # new
+        return reverse('core:lawyer_profile', kwargs={'pk': self.pk})
+```

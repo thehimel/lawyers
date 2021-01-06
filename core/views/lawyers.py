@@ -1,13 +1,13 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.decorators.cache import never_cache
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import (TemplateView, CreateView,
                                   UpdateView, DetailView, ListView)
 from users.decorators import (lawyer_required, user_has_address,
-                              user_has_no_lawyer_profile)
+                              user_has_no_lawyer_profile,
+                              user_has_lawyer_profile)
 from core.forms.lawyers import LawyerProfileCreateForm, LawyerProfileUpdateForm
 from users.models import LawyerProfile
 from core.models import Appointment
@@ -68,19 +68,15 @@ class LawyerProfileCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator([login_required, lawyer_required,
-                   user_has_address], name='dispatch')
-class LawyerProfileUpdateView(UserPassesTestMixin, UpdateView):
+@method_decorator([login_required, lawyer_required, user_has_address,
+                   user_has_lawyer_profile], name='dispatch')
+class LawyerProfileUpdateView(UpdateView):
     model = LawyerProfile
     form_class = LawyerProfileUpdateForm
     template_name = 'core/lawyer_profile.html'
 
-    def test_func(self):
-        lawyerprofile = self.get_object()
-        # Logged in user must be the owner of the lawyerprofile
-        if self.request.user == lawyerprofile.user:
-            return True
-        return False
+    def get_object(self):
+        return self.request.user.lawyerprofile
 
     def form_valid(self, form):
         if not valid_office_hours(form, self.request):

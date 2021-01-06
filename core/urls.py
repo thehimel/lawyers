@@ -36,7 +36,7 @@ urlpatterns = [
          LawyerProfileCreateView.as_view(), name='lawyer_profile_create'),
 
     # url: '/lawyers/profile', name = core:lawyer_profile
-    path('lawyers/profile/<int:pk>/', LawyerProfileUpdateView.as_view(),
+    path('lawyers/profile/', LawyerProfileUpdateView.as_view(),
          name='lawyer_profile'),
 
     # url: '/lawyers/', name = core:lawyers

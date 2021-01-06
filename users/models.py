@@ -178,4 +178,4 @@ class LawyerProfile(models.Model):
         return self.user.username
 
     def get_absolute_url(self):  # new
-        return reverse('core:lawyer_profile', kwargs={'pk': self.pk})
+        return reverse('core:lawyer_profile')
