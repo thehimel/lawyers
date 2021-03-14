@@ -3,5 +3,5 @@
     "python.autoComplete.extraPaths": [
         "C:\\Users\\SANDHI\\.conda\\envs\\law\\Lib\\site-packages"
     ],
-    "editor.minimap.enabled": false,
+    "editor.minimap.enabled": true,
 }
