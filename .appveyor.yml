@@ -1,0 +1,11 @@
+build: false
+
+environment:
+  matrix:
+    - PYTHON: "C:/Python35"
+
+install:
+  - "%PYTHON%/Scripts/pip.exe install -r requirements.txt"
+
+test_script:
+  - "%PYTHON%/Scripts/python.exe test"
