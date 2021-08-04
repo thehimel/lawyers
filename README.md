@@ -1,6 +1,10 @@
 # lawyers
 A Django project that illustrates the implementation of apppointment booking for lawyers.
 
+## Deployment
+
+[https://thelawyers.herokuapp.com/](https://thelawyers.herokuapp.com/)
+
 ## Important Package Versions
 - python==3.7
 - Django==3.1
