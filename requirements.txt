@@ -14,7 +14,7 @@ django-cleanup==5.0.0
 django-cloudinary-storage==0.3.0
 django-countries==7.0
 django-crispy-forms==1.9.2
-django-debug-toolbar==2.2
+django-debug-toolbar==4.3.0
 django-money==1.2.2
 django-multiselectfield==0.1.12
 flake8==3.8.3
